@@ -1,0 +1,10 @@
+{
+  "name": "order-notaris",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ORDER.NOTARIS — static site generator (zero dependencies).",
+  "scripts": {
+    "build": "node build/generate.js",
+    "preview": "node build/preview-artifact.js"
+  }
+}
