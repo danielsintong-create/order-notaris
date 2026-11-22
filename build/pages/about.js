@@ -17,9 +17,11 @@ function about(config) {
   </section>
 
   <section class="section">
-    <div class="container about-statement">
-      <p>ORDER.NOTARIS adalah ekosistem digital kenotariatan Indonesia yang menghimpun edukasi, media, dan layanan dalam satu platform.</p>
-      <p>ORDER.NOTARIS berkomitmen untuk memberikan edukasi, media dan layanan kenotariatan menjadi terjangkau, terpercaya dan aman.</p>
+    <div class="container">
+      <div class="about-statement">
+        <p>ORDER.NOTARIS adalah ekosistem digital kenotariatan Indonesia yang menghimpun edukasi, media, dan layanan dalam satu platform.</p>
+        <p>ORDER.NOTARIS berkomitmen menghadirkan edukasi, media, dan layanan kenotariatan yang terjangkau, terpercaya, dan aman.</p>
+      </div>
     </div>
   </section>
 

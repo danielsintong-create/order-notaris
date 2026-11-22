@@ -1270,9 +1270,10 @@ a.lesson__title:hover { color: var(--navy-700); text-decoration: underline; text
 @media (min-width: 1024px) { .video-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 
 /* About: statement + Visi & Misi */
-.about-statement { max-width: 860px; margin: 0 auto; text-align: center; }
-.about-statement p { font-family: var(--font-display); font-size: 22px; line-height: 1.55; color: var(--navy-900); }
-.about-statement p + p { margin-top: 18px; font-family: var(--font-sans); font-weight: 700; font-size: 17px; line-height: 1.7; color: var(--ink-700); }
+/* Both sentences share one style, left-aligned body text (not a centered headline) */
+.about-statement { max-width: 72ch; text-align: left; }
+.about-statement p { font-family: var(--font-sans); font-weight: 400; font-size: 18px; line-height: 1.75; color: var(--ink-700); }
+.about-statement p + p { margin-top: 16px; }
 .vm-visi { max-width: 760px; margin: 28px auto 0; text-align: center; }
 .vm-label { display: block; font-family: var(--font-sans); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy-700); }
 .vm-visi p { margin-top: 10px; font-family: var(--font-display); font-size: 22px; line-height: 1.5; color: var(--navy-900); }
@@ -1284,11 +1285,12 @@ a.lesson__title:hover { color: var(--navy-700); text-decoration: underline; text
 .vm-item h3 { margin-top: 6px; font-family: var(--font-sans); font-weight: 700; font-size: 18px; color: var(--ink-900); }
 .vm-item p { margin-top: 6px; font-size: 14.5px; line-height: 1.6; color: var(--ink-600); }
 @media (min-width: 768px) {
-  .about-statement p, .vm-visi p { font-size: 28px; }
+  .vm-visi p { font-size: 28px; }
   .vm-misi__grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
 }
 @media (max-width: 767px) {
-  .about-statement p, .vm-visi p { font-size: 20px; }
+  .vm-visi p { font-size: 20px; }
+  .about-statement p { font-size: 16.5px; }
 }
 .academy-values { padding-top: 40px; padding-bottom: 40px; }
 .academy-values__grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
