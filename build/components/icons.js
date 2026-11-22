@@ -27,6 +27,9 @@ const icons = {
   chevronRight: () => svg('<path d="M9 6l6 6-6 6"/>'),
   chevronLeft: () => svg('<path d="M15 6l-6 6 6 6"/>'),
   plus: () => svg('<path d="M12 5v14M5 12h14"/>'),
+  lock: () => svg('<rect x="5" y="10.5" width="14" height="10" rx="1.8"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>'),
+  check: () => svg('<path d="m5 12.5 4.2 4.2L19 7"/>'),
+  doc: () => svg('<path d="M14 3.5H7A1.5 1.5 0 0 0 5.5 5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8L14 3.5Z"/><path d="M14 3.5V8h4.5"/><path d="M9 13h6M9 16.5h4"/>'),
   // service icons (white, on photo cards)
   clipboard: () => svg('<rect x="5" y="4.5" width="14" height="16.5" rx="1.6"/><path d="M9 4.5V3.5h6v1"/><path d="M8.5 10l1.2 1.2L12 9"/><path d="M13.5 10.5H16"/><path d="M8.5 15l1.2 1.2L12 14"/><path d="M13.5 15.5H16"/>'),
   scale: () => svg('<path d="M12 4v16"/><path d="M8 20h8"/><path d="M5 7h14"/><path d="M12 4.5 9 6.5M12 4.5l3 2"/><path d="M5 7 2.5 13a2.6 2.6 0 0 0 5 0L5 7Z"/><path d="m19 7-2.5 6a2.6 2.6 0 0 0 5 0L19 7Z"/>'),

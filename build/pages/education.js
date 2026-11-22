@@ -1,121 +1,237 @@
 const icons = require("../components/icons");
-const sectionHeading = require("../components/sectionHeading");
+const { STAGES, PREMIUM, QUIZ, FAQ } = require("../content/curriculum");
 
-const TRACKS = [
-  {
-    level: "01 — Dasar",
-    title: "Pengantar Dunia Kenotariatan",
-    audience: "Mahasiswa hukum & pemula",
-    points: [
-      "Apa itu notaris, PPAT, dan perbedaan kewenangannya",
-      "Istilah dasar yang sering digunakan dalam praktik",
-      "Gambaran umum jenjang karier di bidang kenotariatan",
-    ],
-    reads: [{ slug: "status-hukum-organisasi-notaris-ini", title: "Status Hukum Organisasi Notaris: Kedudukan Ikatan Notaris Indonesia (INI)" }],
-  },
-  {
-    level: "02 — Menengah",
-    title: "Praktik Akta & Dokumen",
-    audience: "Mahasiswa M.Kn. & staf kenotariatan",
-    points: [
-      "Struktur dan anatomi akta otentik",
-      "Alur kerja PPAT dalam peralihan hak atas tanah",
-      "Dokumen pendukung yang umum diperlukan dalam berbagai transaksi",
-    ],
-    reads: [
-      { slug: "peran-ppat-peralihan-hak-tanah", title: "Peran PPAT dalam Peralihan Hak Atas Tanah: Panduan Singkat" },
-      { slug: "kesalahan-umum-tesis-mkn", title: "5 Kesalahan Umum Mahasiswa M.Kn. Saat Menyusun Tesis" },
-    ],
-  },
-  {
-    level: "03 — Lanjutan",
-    title: "Pembiayaan, Leasing & Isu Kontemporer",
-    audience: "Profesional & akademisi",
-    points: [
-      "Struktur transaksi pembiayaan dan sale and leaseback",
-      "Isu digitalisasi akta dan tanda tangan elektronik",
-      "Studi kasus lintas sektor: maritim, korporasi, dan properti",
-    ],
-    reads: [{ slug: "digitalisasi-akta-notaris", title: "Digitalisasi Akta Notaris: Peluang dan Tantangan" }],
-  },
-];
+// Edukasi = the learning hub. Free material is readable without signup; premium items are
+// shown locked with a "daftar minat" route until prices and checkout are set up.
+// Layout borrows the module-list presentation of akademicrypto.com (thumbnail + outcome +
+// timeline), adapted to a free + premium catalogue.
+
+function lessonItem(config, l) {
+  if (l.type === "premium") {
+    return `
+    <li class="lesson lesson--premium">
+      <span class="lesson__icon">${icons.lock()}</span>
+      <span class="lesson__title">${l.title}</span>
+      <span class="lesson-badge lesson-badge--premium">Premium</span>
+    </li>`;
+  }
+  if (l.slug) {
+    return `
+    <li class="lesson lesson--free">
+      <span class="lesson__icon">${icons.doc()}</span>
+      <a class="lesson__title" href="/media/${l.slug}/">${l.title}</a>
+      <span class="lesson-badge lesson-badge--free">Gratis</span>
+    </li>`;
+  }
+  return `
+    <li class="lesson lesson--soon">
+      <span class="lesson__icon">${icons.doc()}</span>
+      <span class="lesson__title">${l.title}</span>
+      <span class="lesson-badge lesson-badge--soon">Segera Terbit</span>
+    </li>`;
+}
+
+function moduleRow(config, s) {
+  const free = s.lessons.filter((l) => l.type === "free").length;
+  const premium = s.lessons.length - free;
+  return `
+  <article class="module" id="tahap-${s.id}">
+    <div class="module__media">
+      <img src="${s.image}" alt="" loading="lazy" width="1456" height="1088" />
+      <div class="module__media-label">
+        <span>Tahap ${s.step}</span>
+        <strong>${s.short}</strong>
+      </div>
+    </div>
+    <div class="module__rail" aria-hidden="true"><span class="module__dot">${icons.check()}</span></div>
+    <div class="module__body">
+      <span class="module__step">Tahap ${s.step} · ${s.short}</span>
+      <h3 class="module__title">${s.title}</h3>
+      <p class="module__audience">Untuk: ${s.audience}</p>
+      <p class="module__outcome">${s.outcome}</p>
+      <p class="module__count">${free} materi gratis · ${premium} materi premium</p>
+      <ul class="lesson-list">
+        ${s.lessons.map((l) => lessonItem(config, l)).join("")}
+      </ul>
+    </div>
+  </article>`;
+}
+
+function premiumCard(config, p) {
+  return `
+  <div class="premium-card">
+    <div class="premium-card__top">
+      <span class="lesson-badge lesson-badge--premium">${icons.lock()} Premium</span>
+      <span class="premium-card__stage">${p.stage}</span>
+    </div>
+    <h3 class="premium-card__title">${p.title}</h3>
+    <ul class="premium-card__points">
+      ${p.points.map((pt) => `<li>${icons.check()}<span>${pt}</span></li>`).join("")}
+    </ul>
+    <p class="premium-card__price">${p.price ? p.price : "Harga segera diumumkan"}</p>
+    <a class="btn btn-navy btn-block" href="${config.waLink(`Halo ORDER.NOTARIS, saya ingin mendaftar minat untuk materi premium: ${p.title}`)}" target="_blank" rel="noopener">Daftar Minat</a>
+  </div>`;
+}
 
 function education(config) {
+  const quizData = JSON.stringify(QUIZ).replace(/</g, "\\u003c");
   return `
-  <section class="page-hero page-hero--photo" style="background-image:url('/assets/photos/law-books.jpg');">
+  <section class="page-hero page-hero--photo edu-hero" style="background-image:url('/assets/photos/law-books.jpg');">
     <div class="container">
       <div class="breadcrumb"><a href="/">Beranda</a> / Edukasi</div>
-      <span class="eyebrow eyebrow--onlight">Pilar 1 — Bacaan Gratis</span>
-      <h1 class="display">Edukasi Kenotariatan, Disusun Bertahap</h1>
-      <p>Dari pengantar untuk mahasiswa tingkat pertama hingga topik lanjutan untuk profesional — artikel gratis, tanpa perlu daftar, disusun berjenjang agar mudah diikuti tanpa mengorbankan kedalaman.</p>
+      <span class="eyebrow eyebrow--onlight">Edukasi ORDER.NOTARIS</span>
+      <h1 class="display">Belajar Kenotariatan, dari M.Kn. hingga Praktik</h1>
+      <p>Materi disusun mengikuti perjalanan karier: mahasiswa M.Kn., seleksi ALB INI, magang menuju UKEN, ujian PPAT, hingga praktik. Bacaan gratis tanpa perlu daftar, dengan materi premium untuk pendalaman.</p>
+      <div class="edu-hero__cta">
+        <a class="btn btn-light btn-lg" href="#perjalanan">Mulai Belajar Gratis ${icons.arrowRight()}</a>
+        <a class="btn btn-outline--onlight btn-lg" href="#premium">Lihat Materi Premium</a>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section edu-journey-section" id="perjalanan">
     <div class="container">
-      ${sectionHeading({
-        eyebrow: "Jalur Belajar",
-        title: "Tiga tingkatan, satu alur yang runtut",
-        lede: "Baca gratis, sesuai levelmu — tanpa perlu daftar. Untuk format kelas dengan jadwal dan pendampingan, lihat Akademi.",
-      })}
-      <div class="card-grid" style="gap:20px;">
-        ${TRACKS.map(
-          (t) => `
-          <div class="service-card">
-            <span class="eyebrow">${t.level}</span>
-            <h3 style="margin-top:6px;">${t.title}</h3>
-            <p class="small" style="color:var(--ink-400);">Untuk: ${t.audience}</p>
-            <ul>${t.points.map((p) => `<li>${p}</li>`).join("")}</ul>
-            <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:grid;gap:8px;">
-                    <span class="small" style="font-weight:700;color:var(--navy-800);">Mulai baca:</span>
-                    ${t.reads
-                      .map(
-                        (r) => `
-                    <a href="/media/${r.slug}/" class="small" style="display:flex;align-items:center;gap:4px;color:var(--navy-900);font-weight:600;">
-                      ${r.title} ${icons.chevronRight()}
-                    </a>`
-                      )
-                      .join("")}
-                  </div>
-          </div>`
+      <h2 class="display center-heading">Peta Perjalanan Belajar</h2>
+      <p class="center-sub">Pilih tahap yang sedang Anda jalani.</p>
+      <ol class="journey">
+        ${STAGES.map(
+          (s) => `
+        <li class="journey__step">
+          <a href="#tahap-${s.id}">
+            <span class="journey__num">${s.step}</span>
+            <span class="journey__label">${s.short}</span>
+          </a>
+        </li>`
         ).join("")}
-      </div>
+      </ol>
     </div>
   </section>
 
   <section class="section section--dim">
-    <div class="container two-col">
-      <div>
-        ${sectionHeading({
-          eyebrow: "Semua Bacaan",
-          title: "Ingin lihat semua artikel, bukan per level?",
-          lede: "Kunjungi Media untuk daftar lengkap artikel, termasuk yang belum masuk ke salah satu jalur di atas.",
-        })}
-        <a class="btn btn-navy" href="/media/">Kunjungi Media ${icons.arrowRight()}</a>
+    <div class="container">
+      <div class="module-legend" aria-label="Keterangan">
+        <span class="module-legend__item"><span class="lesson-badge lesson-badge--free">Gratis</span> dapat dibaca sekarang</span>
+        <span class="module-legend__item"><span class="lesson-badge lesson-badge--soon">Segera Terbit</span> gratis, sedang disiapkan</span>
+        <span class="module-legend__item"><span class="lesson-badge lesson-badge--premium">Premium</span> materi berbayar</span>
       </div>
-      <div>
-        ${sectionHeading({
-          eyebrow: "Kelas Terstruktur & Berbayar",
-          title: "Ingin format kelas, sertifikasi, atau template siap pakai?",
-          lede: "Akademi ORDER.NOTARIS menghadirkan kelas berjadwal, sertifikasi, serta materi dan template yang bisa dipesan.",
-        })}
-        <a class="btn btn-outline" href="/academy/">Lihat Akademi ${icons.arrowRight()}</a>
+      <div class="module-list">
+        ${STAGES.map((s) => moduleRow(config, s)).join("")}
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="kuis">
     <div class="container">
-      <div class="cta-banner">
-        <span class="eyebrow eyebrow--onlight">Punya Pertanyaan Spesifik?</span>
-        <h2 class="display">Diskusikan kebutuhan belajarmu langsung dengan tim kami</h2>
-        <div class="cta-banner__actions">
-          <a class="btn btn-wa btn-lg" href="${config.waLink()}" target="_blank" rel="noopener">${icons.whatsapp()} Chat via WhatsApp</a>
-          <a class="btn btn-outline--onlight btn-lg" href="/academy/">Lihat Resource Gratis</a>
+      <div class="quiz" data-quiz>
+        <span class="eyebrow">Latihan Gratis</span>
+        <h2 class="display quiz__heading">Coba 10 Soal Pengetahuan Dasar</h2>
+        <p class="quiz__intro">Uji pemahaman Anda tentang syarat dan tahapan menjadi notaris dan PPAT. Setiap jawaban disertai dasar hukumnya. Bukan soal ujian resmi.</p>
+        <div class="quiz__card" data-quiz-card>
+          <div class="quiz__progress"><span data-quiz-count>Soal 1 dari ${QUIZ.length}</span><span class="quiz__bar"><span data-quiz-bar></span></span></div>
+          <p class="quiz__q" data-quiz-q></p>
+          <div class="quiz__options" data-quiz-options></div>
+          <p class="quiz__why" data-quiz-why hidden></p>
+          <button class="btn btn-navy" type="button" data-quiz-next hidden>Soal Berikutnya ${icons.arrowRight()}</button>
+        </div>
+        <div class="quiz__result" data-quiz-result hidden>
+          <p class="quiz__score" data-quiz-score></p>
+          <p>Ingin latihan lebih lengkap? Bank soal premium disusun per tahap — seleksi ALB INI, UKEN, dan ujian PPAT — lengkap dengan pembahasan.</p>
+          <div class="quiz__result-actions">
+            <a class="btn btn-navy" href="#premium">Lihat Materi Premium</a>
+            <button class="btn btn-outline" type="button" data-quiz-restart>Ulangi Kuis</button>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <section class="section section--dim" id="premium">
+    <div class="container">
+      <h2 class="display center-heading">Materi Premium</h2>
+      <p class="center-sub">Pendalaman per tahap. Harga diumumkan saat materi dirilis — daftarkan minat Anda lebih dulu.</p>
+      <div class="premium-grid">
+        ${PREMIUM.map((p) => premiumCard(config, p)).join("")}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container faq-wrap">
+      <h2 class="display center-heading">Pertanyaan Umum</h2>
+      <div class="faq">
+        ${FAQ.map(
+          (f) => `
+        <details class="faq__item">
+          <summary>${f.q}<span class="faq__icon" aria-hidden="true">${icons.plus()}</span></summary>
+          <p>${f.a}</p>
+        </details>`
+        ).join("")}
+      </div>
+      <p class="faq__more">Ingin membaca semua artikel? <a href="/media/">Kunjungi Media &amp; Artikel ${icons.arrowRight()}</a></p>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-quiz]');
+      if (!root) return;
+      var Q = ${quizData}.map(function (item) {
+        var order = item.options.map(function (_, k) { return k; });
+        for (var a = order.length - 1; a > 0; a--) { var r = Math.floor(Math.random() * (a + 1)); var t = order[a]; order[a] = order[r]; order[r] = t; }
+        return { q: item.q, why: item.why, options: order.map(function (k) { return item.options[k]; }), answer: order.indexOf(item.answer) };
+      });
+      var i = 0, score = 0, answered = false;
+      var el = function (s) { return root.querySelector('[data-quiz-' + s + ']'); };
+      var card = el('card'), result = el('result');
+      function render() {
+        answered = false;
+        var item = Q[i];
+        el('count').textContent = 'Soal ' + (i + 1) + ' dari ' + Q.length;
+        el('bar').style.width = ((i) / Q.length * 100) + '%';
+        el('q').textContent = item.q;
+        el('why').hidden = true;
+        el('next').hidden = true;
+        var box = el('options');
+        box.innerHTML = '';
+        item.options.forEach(function (opt, k) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'quiz__opt';
+          b.innerHTML = '<span class="quiz__letter">' + 'ABCD'.charAt(k) + '</span><span></span>';
+          b.lastChild.textContent = opt;
+          b.addEventListener('click', function () { choose(k, b); });
+          box.appendChild(b);
+        });
+      }
+      function choose(k, btn) {
+        if (answered) return;
+        answered = true;
+        var item = Q[i];
+        var opts = el('options').children;
+        for (var n = 0; n < opts.length; n++) {
+          opts[n].disabled = true;
+          if (n === item.answer) opts[n].classList.add('is-correct');
+        }
+        if (k === item.answer) { score++; } else { btn.classList.add('is-wrong'); }
+        var why = el('why');
+        why.textContent = (k === item.answer ? 'Benar. ' : 'Kurang tepat. ') + item.why;
+        why.hidden = false;
+        var next = el('next');
+        next.hidden = false;
+        next.firstChild.textContent = i === Q.length - 1 ? 'Lihat Hasil ' : 'Soal Berikutnya ';
+        next.focus();
+      }
+      el('next').addEventListener('click', function () {
+        if (i < Q.length - 1) { i++; render(); }
+        else {
+          card.hidden = true; result.hidden = false;
+          el('score').textContent = 'Skor Anda: ' + score + ' dari ' + Q.length;
+        }
+      });
+      el('restart').addEventListener('click', function () { i = 0; score = 0; result.hidden = true; card.hidden = false; render(); });
+      render();
+    })();
+  </script>
   `;
 }
 
