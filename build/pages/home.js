@@ -30,27 +30,27 @@ const PILLARS = [
   },
 ];
 
-// 3 service categories for the "Apa yang Anda butuhkan?" entry section. Each category
-// links to the most relevant destination page directly (static links, no JS filtering —
-// kept in the site's restrained editorial style rather than an interactive selector).
-const SERVICE_CATEGORIES = [
+// Three full-bleed photo panels under the hero, modelled on umbra.law's interactive
+// banners: the title is always visible, the body text fades in on hover/focus (and is
+// shown permanently on touch screens, which have no hover). Each panel links onward.
+const INSIGHT_PANELS = [
   {
-    title: "Notaris",
-    description: "Pembuatan akta otentik untuk kebutuhan perorangan, korporasi, dan lembaga.",
-    href: "/services/pembuatan-akta-notaris/",
-    icon: icons.briefcase(),
+    title: "What is ORDER.NOTARIS?",
+    body: "<p>Ekosistem digital kenotariatan Indonesia yang menghimpun edukasi, media, dan layanan dalam satu platform.</p>",
+    href: "/about/",
+    image: "/assets/photos/reception.jpg",
   },
   {
-    title: "PPAT",
-    description: "Peralihan hak atas tanah dan bangunan — jual beli, hibah, dan proses terkait.",
-    href: "/services/ppat-peralihan-hak-tanah/",
-    icon: icons.briefcase(),
+    title: "What ORDER.NOTARIS Does?",
+    body: "<p><b>LEARN</b> &mdash; materi kenotariatan yang tersusun berjenjang<br><b>INFORM</b> &mdash; perkembangan regulasi dan perspektif praktik<br><b>SERVE</b> &mdash; arahan menuju layanan yang tepat</p>",
+    href: "/education/",
+    image: "/assets/photos/lecture-hall.jpg",
   },
   {
-    title: "Korporasi & Legal",
-    description: "Konsultasi hukum korporasi, pembiayaan, serta legal due diligence.",
-    href: "/services/",
-    icon: icons.briefcase(),
+    title: "How Can ORDER.NOTARIS Help You?",
+    body: "<p>Pilih Layanan atau ceritakan kebutuhanmu, kami bantu arahkan ke langkah berikutnya, mulai dari konsultasi awal via WhatsApp.</p>",
+    href: "/contact/",
+    image: "/assets/photos/meeting-room.jpg",
   },
 ];
 
@@ -89,12 +89,14 @@ function pillarPhotoCard({ index, kicker, title, description, href, image, linkL
   </a>`;
 }
 
-function categoryCard({ index, title, description, href, icon }) {
+function insightPanel({ title, body, href, image }) {
   return `
-  <a class="service-card" href="${href}" style="display:flex;">
-    <div class="pillar-card__icon">${icon}</div>
-    <h3>${title}</h3>
-    <p>${description}</p>
+  <a class="insight-panel" href="${href}">
+    <img src="${image}" alt="" loading="lazy" width="1456" height="1088" />
+    <div class="insight-panel__body">
+      <h3 class="insight-panel__title">${title}</h3>
+      <div class="insight-panel__content">${body}</div>
+    </div>
   </a>`;
 }
 
@@ -113,6 +115,10 @@ function home(config) {
     </div>
   </section>
 
+  <section class="insight-panels" aria-label="Tentang ORDER.NOTARIS">
+    ${INSIGHT_PANELS.map(insightPanel).join("")}
+  </section>
+
   <section class="section section--pillars" aria-label="Learn, Inform, Serve">
     <div class="container">
       <div class="pillar-photo-grid">
@@ -122,27 +128,6 @@ function home(config) {
   </section>
 
   <section class="section section--dim">
-    <div class="container">
-      ${sectionHeading({
-        eyebrow: "Mulai di Sini",
-        title: "Apa yang Anda butuhkan?",
-        lede: "Pilih kategori layanan yang paling sesuai dengan kebutuhanmu saat ini.",
-      })}
-      <div class="card-grid card-grid--3">
-        ${SERVICE_CATEGORIES.map((c, i) => categoryCard({ index: i + 1, ...c })).join("")}
-      </div>
-    </div>
-  </section>
-
-  <section class="photo-band" style="background-image:url('/assets/photos/library-archive.jpg');">
-    <div class="container photo-band__inner">
-      <span class="eyebrow eyebrow--onlight">Komitmen Kami</span>
-      <h2 class="display" style="font-size:26px;margin-top:10px;">Ilmu kenotariatan yang tersusun rapi, bukan tersebar dan sulit ditemukan.</h2>
-      <p class="lede" style="margin-top:12px;max-width:56ch;">Setiap artikel, kelas, dan materi di ${config.brand.name} disusun berjenjang — dari pengantar untuk mahasiswa tingkat pertama hingga praktik lanjutan untuk profesional.</p>
-    </div>
-  </section>
-
-  <section class="section">
     <div class="container">
       ${sectionHeading({
         eyebrow: "Bagaimana Prosesnya",
@@ -164,7 +149,7 @@ function home(config) {
     </div>
   </section>
 
-  <section class="section section--dim">
+  <section class="section">
     <div class="container">
       ${sectionHeading({
         eyebrow: "Knowledge",
@@ -178,7 +163,7 @@ function home(config) {
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--dim">
     <div class="container">
       <div class="academy-teaser academy-teaser--photo" style="background-image:url('/assets/photos/lecture-hall.jpg');">
         <span class="academy-teaser__kicker">AKADEMI</span>
@@ -193,16 +178,11 @@ function home(config) {
     </div>
   </section>
 
-  <section class="section section--dim">
-    <div class="container">
-      <div class="cta-banner">
-        <span class="eyebrow eyebrow--onlight">Siap Memulai?</span>
-        <h2 class="display">Ceritakan kebutuhanmu, kami bantu arahkan ke langkah berikutnya</h2>
-        <div class="cta-banner__actions">
-          <a class="btn btn-wa btn-lg" href="${config.waLink()}" target="_blank" rel="noopener">${icons.whatsapp()} Chat via WhatsApp</a>
-          <a class="btn btn-outline--onlight btn-lg" href="/contact/">Halaman Kontak</a>
-        </div>
-      </div>
+  <section class="photo-band" style="background-image:url('/assets/photos/library-archive.jpg');">
+    <div class="container photo-band__inner">
+      <span class="eyebrow eyebrow--onlight">Komitmen Kami</span>
+      <h2 class="display" style="font-size:26px;margin-top:10px;">Ilmu kenotariatan yang tersusun rapi, bukan tersebar dan sulit ditemukan.</h2>
+      <p class="lede" style="margin-top:12px;max-width:56ch;">Setiap artikel, kelas, dan materi di ${config.brand.name} disusun berjenjang — dari pengantar untuk mahasiswa tingkat pertama hingga praktik lanjutan untuk profesional.</p>
     </div>
   </section>
 

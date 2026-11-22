@@ -430,6 +430,88 @@ h3.display { font-size: 21px; }
 .section--pillars { padding-top: 40px; padding-bottom: 40px; }
 @media (min-width: 768px) { .section--pillars { padding-top: 56px; padding-bottom: 56px; } }
 
+/* Interactive photo panels under the hero (pattern from umbra.law): full-bleed, three
+   across on tablet/desktop. Title always visible; body text fades in on hover or keyboard
+   focus. Touch screens have no hover, so there the text is shown permanently. */
+.insight-panels { display: grid; grid-template-columns: 1fr; background: var(--navy-950); }
+.insight-panel {
+  position: relative;
+  display: block;
+  min-height: 280px;
+  overflow: hidden;
+  color: var(--white);
+  isolation: isolate;
+}
+.insight-panel img {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--motion-hero) var(--ease-out);
+}
+/* navy tint over the photo; deepens on hover so the revealed text stays readable */
+.insight-panel::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(16, 27, 38, 0.62) 0%, rgba(43, 70, 97, 0.45) 100%);
+  transition: background-color var(--motion-300) var(--ease-out), opacity var(--motion-300) var(--ease-out);
+}
+.insight-panel::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgba(16, 27, 38, 0.5);
+  opacity: 0;
+  transition: opacity var(--motion-300) var(--ease-out);
+}
+.insight-panel__body {
+  height: 100%;
+  min-height: inherit;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 44px 28px;
+  text-align: center;
+}
+.insight-panel__title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.3;
+  color: var(--white);
+}
+.insight-panel__content {
+  margin-top: 18px;
+  max-width: 34ch;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.92);
+}
+.insight-panel__content b { font-weight: 700; letter-spacing: 0.08em; }
+.insight-panel:focus-visible { outline: 2px solid var(--white); outline-offset: -6px; }
+
+@media (min-width: 768px) {
+  .insight-panels { grid-template-columns: repeat(3, 1fr); }
+  .insight-panel { min-height: 400px; }
+  .insight-panel__body { padding: 64px 32px; }
+  .insight-panel__title { font-size: 24px; }
+  .insight-panel__content { font-size: 16px; }
+}
+/* Devices with a real pointer: hide the body text until hover/focus */
+@media (hover: hover) {
+  .insight-panel__content {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity var(--motion-300) var(--ease-out), transform var(--motion-300) var(--ease-out);
+  }
+  .insight-panel:hover .insight-panel__content,
+  .insight-panel:focus-visible .insight-panel__content { opacity: 1; transform: none; }
+  .insight-panel:hover::after,
+  .insight-panel:focus-visible::after { opacity: 1; }
+  .insight-panel:hover img,
+  .insight-panel:focus-visible img { transform: scale(1.04); }
+}
+@media (hover: none) {
+  .insight-panel::after { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .insight-panel img, .insight-panel::before, .insight-panel::after, .insight-panel__content { transition: none; }
+  .insight-panel:hover img, .insight-panel:focus-visible img { transform: none; }
+}
+
 /* Pillar photo cards (Edukasi / Media / Layanan) under the hero */
 .pillar-photo-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 .pillar-photo {
