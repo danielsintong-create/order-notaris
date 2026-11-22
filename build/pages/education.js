@@ -12,7 +12,7 @@ function lessonItem(config, l) {
     return `
     <li class="lesson lesson--premium">
       <span class="lesson__icon">${icons.lock()}</span>
-      <a class="lesson__title" href="/academy/#${l.product}">${l.title}</a>
+      <a class="lesson__title" href="#${l.product}">${l.title}</a>
       <span class="lesson-badge lesson-badge--premium">Premium</span>
     </li>`;
   }
@@ -60,7 +60,7 @@ function moduleRow(config, s) {
 
 function premiumCard(config, p) {
   return `
-  <div class="premium-card">
+  <div class="premium-card" id="${p.id}">
     <div class="premium-card__top">
       <span class="lesson-badge lesson-badge--premium">${icons.lock()} Premium</span>
       <span class="premium-card__stage">${STAGE_LABELS[p.stage]}</span>
@@ -70,7 +70,7 @@ function premiumCard(config, p) {
       ${p.points.map((pt) => `<li>${icons.check()}<span>${pt}</span></li>`).join("")}
     </ul>
     <p class="premium-card__price">${p.price ? p.price : "Harga segera diumumkan"}</p>
-    <a class="btn btn-navy btn-block" href="/academy/#${p.id}">Lihat di Akademi</a>
+    ${p.checkout ? `<a class="btn btn-navy btn-block" href="${p.checkout}" target="_blank" rel="noopener">Beli Sekarang</a>` : `<a class="btn btn-navy btn-block" href="${config.waLink(`Halo ORDER.NOTARIS, saya ingin mendaftar minat untuk materi premium: ${p.title}`)}" target="_blank" rel="noopener">Daftar Minat</a>`}
   </div>`;
 }
 
@@ -149,11 +149,11 @@ function education(config) {
   <section class="section section--dim" id="premium">
     <div class="container">
       <h2 class="display center-heading">Materi Premium</h2>
-      <p class="center-sub">Pendalaman per tahap, tersedia di Akademi ORDER.NOTARIS.</p>
+      <p class="center-sub">Bank soal, template, dan materi untuk belajar mandiri. Harga diumumkan saat materi dirilis — daftarkan minat Anda lebih dulu.</p>
       <div class="premium-grid">
-        ${PRODUCTS.filter((p) => p.featured).map((p) => premiumCard(config, p)).join("")}
+        ${PRODUCTS.map((p) => premiumCard(config, p)).join("")}
       </div>
-      <p class="premium-more"><a class="btn btn-outline" href="/academy/#katalog">Lihat Semua ${PRODUCTS.length} Materi di Akademi ${icons.arrowRight()}</a></p>
+      <p class="premium-more">Ingin belajar didampingi pengajar? <a href="/academy/">Lihat Kelas Digital di Akademi ${icons.arrowRight()}</a></p>
     </div>
   </section>
 

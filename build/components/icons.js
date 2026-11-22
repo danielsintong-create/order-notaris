@@ -27,6 +27,7 @@ const icons = {
   chevronRight: () => svg('<path d="M9 6l6 6-6 6"/>'),
   chevronLeft: () => svg('<path d="M15 6l-6 6 6 6"/>'),
   plus: () => svg('<path d="M12 5v14M5 12h14"/>'),
+  play: () => svg('<path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" stroke="none"/>'),
   lock: () => svg('<rect x="5" y="10.5" width="14" height="10" rx="1.8"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>'),
   check: () => svg('<path d="m5 12.5 4.2 4.2L19 7"/>'),
   doc: () => svg('<path d="M14 3.5H7A1.5 1.5 0 0 0 5.5 5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8L14 3.5Z"/><path d="M14 3.5V8h4.5"/><path d="M9 13h6M9 16.5h4"/>'),

@@ -58,7 +58,7 @@ const INSIGHT_PANELS = [
 // from the existing set until service-specific photos are supplied.
 // Items without their own page link to WhatsApp with a prefilled message (waText).
 const FEATURED_SERVICES = [
-  { title: "Template Soal ALB INI dan IPPAT", href: "/academy/#bank-soal-alb-ini", icon: "clipboard", image: "/assets/photos/law-books.jpg", pos: "30% 50%" },
+  { title: "Template Soal ALB INI dan IPPAT", href: "/education/#bank-soal-alb-ini", icon: "clipboard", image: "/assets/photos/law-books.jpg", pos: "30% 50%" },
   { title: "Konsultasi Akta Notaris", href: "/services/pembuatan-akta-notaris/", icon: "stamp", image: "/assets/photos/pen-seal.jpg", pos: "70% 60%" },
   { title: "Konsultasi Kasus Pengurusan Pertanahan", href: "/services/ppat-peralihan-hak-tanah/", icon: "landHome", image: "/assets/photos/hero-building.jpg", pos: "65% 50%" },
   { title: "Bimbingan Jurnal Ilmiah", href: "/academy/#bimbingan-jurnal-ilmiah", icon: "cap", image: "/assets/photos/writing-desk.jpg", pos: "30% 60%" },

@@ -179,7 +179,7 @@ const FAQ = [
   },
   {
     q: "Bagaimana cara mendapatkan materi Premium?",
-    a: "Materi Premium tersedia di halaman Akademi. Klik Daftar Minat pada materi yang Anda pilih; harga dan cara pembayaran dikonfirmasi langsung oleh tim kami via WhatsApp.",
+    a: "Klik Daftar Minat pada materi Premium yang Anda pilih di halaman ini; harga dan cara pembayaran dikonfirmasi langsung oleh tim kami via WhatsApp. Untuk kelas dengan pendampingan, lihat Akademi.",
   },
   {
     q: "Apakah materi mengikuti regulasi terbaru?",

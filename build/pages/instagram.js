@@ -3,7 +3,7 @@ const icons = require("../components/icons");
 function instagram(config) {
   const links = [
     { href: "/education/", label: "Mulai Belajar — Edukasi Kenotariatan", icon: icons.book(), variant: "" },
-    { href: "/academy/", label: "Akademi, Materi & Resource Gratis", icon: icons.cap(), variant: "primary" },
+    { href: "/academy/", label: "Akademi & Kelas Digital", icon: icons.cap(), variant: "primary" },
     { href: "/services/", label: "Butuh Layanan Notaris/PPAT?", icon: icons.briefcase(), variant: "" },
     { href: "/media/", label: "Baca Artikel Terbaru", icon: icons.newspaper(), variant: "" },
     { href: config.waLink("Halo ORDER.NOTARIS, saya lihat dari Instagram dan ingin bertanya lebih lanjut."), label: "Chat via WhatsApp", icon: icons.whatsapp(), variant: "wa", external: true },

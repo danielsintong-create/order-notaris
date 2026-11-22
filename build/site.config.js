@@ -49,7 +49,7 @@ const config = {
         { label: "Edukasi", href: "/education/" },
         { label: "Media & Artikel", href: "/media/" },
         { label: "Layanan Notaris/PPAT", href: "/services/" },
-        { label: "Akademi & Resource", href: "/academy/" },
+        { label: "Akademi & Kelas Digital", href: "/academy/" },
       ],
     },
     {
