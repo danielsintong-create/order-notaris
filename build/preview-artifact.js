@@ -176,6 +176,11 @@ ${css}
     document.getElementById('minimalBack').hidden = !isMinimal;
     document.title = (TITLES[p] || 'ORDER.NOTARIS') + ' · ORDER.NOTARIS (Preview)';
     document.getElementById('pageRoot').innerHTML = PAGES[p];
+    // Scripts inserted via innerHTML don't run; re-create them so page scripts (contact
+    // form, homepage carousel) work in the preview too.
+    Array.prototype.forEach.call(document.getElementById('pageRoot').querySelectorAll('script'), function (old) {
+      var s = document.createElement('script'); s.textContent = old.textContent; old.parentNode.replaceChild(s, old);
+    });
     renderNav(p);
     window.scrollTo(0, 0);
     if (window.initReveal) window.initReveal();

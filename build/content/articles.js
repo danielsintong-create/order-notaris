@@ -1,6 +1,7 @@
 module.exports = [
   {
     slug: "status-hukum-organisasi-notaris-ini",
+    image: "/assets/photos/law-books.jpg",
     category: "Kelembagaan & Organisasi Profesi",
     title: "Status Hukum Organisasi Notaris: Kedudukan Ikatan Notaris Indonesia (INI)",
     summary: "Ringkasan kedudukan Ikatan Notaris Indonesia sebagai wadah organisasi notaris menurut UUJN, statusnya sebagai badan hukum perkumpulan, dan perkembangan regulasi pembinaan-pengawasan organisasi notaris terbaru.",
@@ -17,6 +18,7 @@ module.exports = [
   },
   {
     slug: "peran-ppat-peralihan-hak-tanah",
+    image: "/assets/photos/hero-building.jpg",
     category: "Praktik PPAT",
     title: "Peran PPAT dalam Peralihan Hak Atas Tanah: Panduan Singkat",
     summary: "Ringkasan alur kerja PPAT dalam proses peralihan hak atas tanah dan bangunan, mulai dari pemeriksaan dokumen hingga pendaftaran di kantor pertanahan.",
@@ -33,6 +35,7 @@ module.exports = [
   },
   {
     slug: "kesalahan-umum-tesis-mkn",
+    image: "/assets/photos/lecture-hall.jpg",
     category: "Akademik & M.Kn.",
     title: "5 Kesalahan Umum Mahasiswa M.Kn. Saat Menyusun Tesis",
     summary: "Catatan reflektif seputar pola kesalahan yang sering terjadi dalam penyusunan tesis Magister Kenotariatan, dari pemilihan topik hingga metodologi penelitian.",
@@ -49,6 +52,7 @@ module.exports = [
   },
   {
     slug: "digitalisasi-akta-notaris",
+    image: "/assets/photos/writing-desk.jpg",
     category: "Teknologi & Kenotariatan",
     title: "Digitalisasi Akta Notaris: Peluang dan Tantangan",
     summary: "Tinjauan awal terhadap arah digitalisasi layanan kenotariatan di Indonesia, termasuk peluang efisiensi dan isu keabsahan yang masih menjadi perdebatan.",

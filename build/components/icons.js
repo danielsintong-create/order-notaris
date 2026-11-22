@@ -25,6 +25,13 @@ const icons = {
   close: () => svg('<path d="M6 6l12 12M18 6 6 18"/>'),
   arrowRight: () => svg('<path d="M5 12h14M13 6l6 6-6 6"/>'),
   chevronRight: () => svg('<path d="M9 6l6 6-6 6"/>'),
+  chevronLeft: () => svg('<path d="M15 6l-6 6 6 6"/>'),
+  plus: () => svg('<path d="M12 5v14M5 12h14"/>'),
+  // service icons (white, on photo cards)
+  stamp: () => svg('<path d="M9.5 3.5h5v4.2c0 1 .6 1.9 1.4 2.4l.6.4c.9.5 1.5 1.5 1.5 2.5V14H6v-1c0-1 .6-2 1.5-2.5l.6-.4c.8-.5 1.4-1.4 1.4-2.4V3.5Z"/><path d="M5 17h14"/><path d="M7 20.5h10"/>'),
+  landHome: () => svg('<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.8V20h13V9.8"/><path d="M10 20v-5h4v5"/>'),
+  building: () => svg('<rect x="5" y="3.5" width="14" height="17" rx="1"/><path d="M9 7.5h2M13 7.5h2M9 11h2M13 11h2M9 14.5h2M13 14.5h2"/><path d="M10.5 20.5v-3h3v3"/>'),
+  searchDoc: () => svg('<path d="M14 3.5H7A1.5 1.5 0 0 0 5.5 5v14A1.5 1.5 0 0 0 7 20.5h5"/><path d="M14 3.5 18.5 8v2.5"/><path d="M14 3.5V8h4.5"/><circle cx="16" cy="15.5" r="3"/><path d="m18.2 17.7 2.3 2.3"/>'),
 };
 
 module.exports = icons;

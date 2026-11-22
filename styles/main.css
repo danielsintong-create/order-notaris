@@ -512,6 +512,122 @@ h3.display { font-size: 21px; }
   .insight-panel:hover img, .insight-panel:focus-visible img { transform: none; }
 }
 
+/* Centered section heading (used by the services carousel and the process steps) */
+.center-heading { text-align: center; font-size: 28px; }
+.center-sub { margin-top: 12px; text-align: center; color: var(--ink-600); font-size: 16px; }
+@media (min-width: 768px) { .center-heading { font-size: 36px; } .center-sub { font-size: 18px; } }
+
+/* "Layanan Paling Diminati" carousel (pattern from hukumku.id) */
+.service-carousel { position: relative; margin-top: 36px; }
+.service-carousel__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 78%;
+  column-gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.service-carousel__track::-webkit-scrollbar { display: none; }
+.service-slide {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 3 / 4;
+  padding: 28px 26px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  color: var(--white);
+  scroll-snap-align: start;
+  isolation: isolate;
+}
+.service-slide img {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--motion-hero) var(--ease-out);
+}
+.service-slide::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(16, 27, 38, 0.55) 0%, rgba(43, 70, 97, 0.55) 45%, rgba(16, 27, 38, 0.85) 100%);
+  transition: opacity var(--motion-300) var(--ease-out);
+}
+.service-slide__icon { width: 52px; height: 52px; }
+.service-slide__icon svg { width: 52px; height: 52px; stroke-width: 1.4; }
+.service-slide__title { font-family: var(--font-sans); font-weight: 700; font-size: 21px; line-height: 1.35; color: var(--white); }
+.service-slide:hover img { transform: scale(1.05); }
+.service-slide:focus-visible { outline: 2px solid var(--navy-700); outline-offset: 3px; }
+.service-carousel__btn {
+  position: absolute; top: 50%; z-index: 2;
+  width: 48px; height: 48px; margin-top: -24px;
+  display: none; align-items: center; justify-content: center;
+  border: 0; border-radius: 50%;
+  background: var(--white); color: var(--navy-900);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--motion-150) var(--ease-out);
+}
+.service-carousel__btn:hover { box-shadow: var(--shadow-lift); }
+.service-carousel__btn:focus-visible { outline: 2px solid var(--navy-700); outline-offset: 2px; }
+.service-carousel__btn svg { width: 22px; height: 22px; stroke-width: 2; }
+.service-carousel__btn--prev { left: -18px; }
+.service-carousel__btn--next { right: -18px; }
+@media (min-width: 768px) {
+  .service-carousel__track { grid-auto-columns: calc((100% - 16px) / 2); }
+  .service-carousel__btn { display: inline-flex; }
+}
+@media (min-width: 1024px) {
+  .service-carousel__track { grid-auto-columns: calc((100% - 48px) / 3); column-gap: 24px; }
+  .service-carousel__btn--prev { left: -24px; }
+  .service-carousel__btn--next { right: -24px; }
+}
+
+/* Media & Artikel tiles (umbra.law "Insights" format) */
+.article-tile-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-top: 8px; }
+.article-tile { display: flex; flex-direction: column; }
+.article-tile__media { position: relative; aspect-ratio: 11 / 10; overflow: hidden; border-radius: var(--radius-md); background: var(--navy-900); }
+.article-tile__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-hero) var(--ease-out); }
+.article-tile__overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(16, 27, 38, 0.55); color: var(--white);
+  opacity: 0; transition: opacity var(--motion-300) var(--ease-out);
+}
+.article-tile__overlay svg { width: 40px; height: 40px; stroke-width: 1.4; }
+.article-tile:hover .article-tile__overlay, .article-tile:focus-visible .article-tile__overlay { opacity: 1; }
+.article-tile:hover .article-tile__media img { transform: scale(1.04); }
+.article-tile:focus-visible { outline: 2px solid var(--navy-700); outline-offset: 4px; border-radius: var(--radius-md); }
+.article-tile__date { margin-top: 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-600); }
+.article-tile__cat { margin-top: 4px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy-700); }
+.article-tile__cat::before { content: "/ "; color: var(--ink-400); }
+.article-tile__title { margin-top: 10px; font-size: 19px; line-height: 1.35; }
+/* Phones: articles become a swipeable strip instead of four tall stacked tiles */
+@media (max-width: 639px) {
+  .article-tile-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .article-tile-grid::-webkit-scrollbar { display: none; }
+  .article-tile { scroll-snap-align: start; }
+}
+@media (min-width: 640px) { .article-tile-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .article-tile-grid { grid-template-columns: repeat(4, 1fr); gap: 28px; } }
+
+/* Process steps (illustration tile + numbered title), centered */
+.step-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 44px; }
+.step-card { text-align: center; }
+.step-card__art {
+  width: 200px; height: 200px; margin: 0 auto;
+  border-radius: 28px;
+  background: var(--navy-100);
+}
+.step-card__art svg { width: 100%; height: 100%; display: block; }
+.step-card__title { margin-top: 24px; font-family: var(--font-sans); font-weight: 700; font-size: 20px; color: var(--ink-900); }
+.step-card__desc { margin: 10px auto 0; max-width: 32ch; color: var(--ink-600); font-size: 15.5px; line-height: 1.65; }
+@media (min-width: 768px) { .step-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .service-slide img, .article-tile__media img, .article-tile__overlay { transition: none; }
+  .service-slide:hover img, .article-tile:hover .article-tile__media img { transform: none; }
+}
+
 /* Pillar photo cards (Edukasi / Media / Layanan) under the hero */
 .pillar-photo-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 .pillar-photo {

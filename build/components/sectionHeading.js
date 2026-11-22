@@ -3,8 +3,8 @@ function sectionHeading({ eyebrow, title, lede, link }) {
   <div class="section-head">
     <div class="section-head__top">
       <div>
-        <span class="eyebrow ">${eyebrow || ""}</span>
-        <h2 class="display" style="margin-top:10px;">${title}</h2>
+        ${eyebrow ? `<span class="eyebrow ">${eyebrow}</span>` : ""}
+        <h2 class="display"${eyebrow ? ' style="margin-top:10px;"' : ""}>${title}</h2>
       </div>
       ${link ? `<a class="section-head__link" href="${link.href}" style="">${link.label} →</a>` : ""}
     </div>

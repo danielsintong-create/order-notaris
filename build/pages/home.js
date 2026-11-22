@@ -1,6 +1,5 @@
 const icons = require("../components/icons");
 const sectionHeading = require("../components/sectionHeading");
-const { articleCard } = require("../components/card");
 const articles = require("../content/articles");
 
 const PILLARS = [
@@ -36,34 +35,56 @@ const PILLARS = [
 const INSIGHT_PANELS = [
   {
     title: "What is ORDER.NOTARIS?",
-    body: "<p>Ekosistem digital kenotariatan Indonesia yang menghimpun edukasi, media, dan layanan dalam satu platform.</p>",
+    body: "<p>A digital ecosystem for Indonesian notarial practice, bringing education, media, and services together in one platform.</p>",
     href: "/about/",
     image: "/assets/photos/reception.jpg",
   },
   {
     title: "What ORDER.NOTARIS Does?",
-    body: "<p><b>LEARN</b> &mdash; materi kenotariatan yang tersusun berjenjang<br><b>INFORM</b> &mdash; perkembangan regulasi dan perspektif praktik<br><b>SERVE</b> &mdash; arahan menuju layanan yang tepat</p>",
+    body: "<p><b>LEARN</b> &mdash; structured notarial learning, step by step<br><b>INFORM</b> &mdash; regulatory updates and practice perspectives<br><b>SERVE</b> &mdash; guidance toward the right service</p>",
     href: "/education/",
     image: "/assets/photos/lecture-hall.jpg",
   },
   {
     title: "How Can ORDER.NOTARIS Help You?",
-    body: "<p>Pilih Layanan atau ceritakan kebutuhanmu, kami bantu arahkan ke langkah berikutnya, mulai dari konsultasi awal via WhatsApp.</p>",
+    body: "<p>Choose a service or tell us what you need, and we will guide you to the next step, starting with an initial consultation via WhatsApp.</p>",
     href: "/contact/",
     image: "/assets/photos/meeting-room.jpg",
   },
 ];
 
+// "Layanan Paling Diminati" carousel (pattern from hukumku.id): tall photo cards with a
+// navy tint, a white icon top-left and the title bottom-left. Photos are temporary picks
+// from the existing set until service-specific photos are supplied.
+const FEATURED_SERVICES = [
+  { title: "Akta Notaris", href: "/services/pembuatan-akta-notaris/", icon: "stamp", image: "/assets/photos/pen-seal.jpg", pos: "70% 60%" },
+  { title: "Peralihan Hak Tanah (PPAT)", href: "/services/ppat-peralihan-hak-tanah/", icon: "landHome", image: "/assets/photos/hero-building.jpg", pos: "65% 50%" },
+  { title: "Hukum Korporasi & Pembiayaan", href: "/services/konsultasi-hukum-korporasi/", icon: "building", image: "/assets/photos/meeting-room.jpg", pos: "40% 60%" },
+  { title: "Legal Due Diligence", href: "/services/legal-due-diligence/", icon: "searchDoc", image: "/assets/photos/library-archive.jpg", pos: "50% 50%" },
+  { title: "Bimbingan Jurnal Ilmiah", href: "/academy/", icon: "cap", image: "/assets/photos/writing-desk.jpg", pos: "30% 60%" },
+];
+
+// Process steps, laid out like a fintech "cara mudah" flow: an illustration tile, a
+// numbered title and a short line under it. Illustrations are inline SVG in the brand navy.
+const STEP_ART = {
+  explore: `<svg viewBox="0 0 200 200" aria-hidden="true"><rect x="62" y="28" width="76" height="144" rx="14" fill="#fff" stroke="#2b4661" stroke-width="4"/><rect x="88" y="37" width="24" height="5" rx="2.5" fill="#2b4661"/><rect x="74" y="54" width="52" height="14" rx="7" fill="#e6edf4" stroke="#9cb8d3" stroke-width="2"/><circle cx="84" cy="61" r="3.5" fill="none" stroke="#46739f" stroke-width="2"/><rect x="74" y="82" width="10" height="10" rx="2" fill="#6b94bd"/><rect x="90" y="84" width="34" height="6" rx="3" fill="#cad9e8"/><rect x="74" y="100" width="10" height="10" rx="2" fill="#6b94bd"/><rect x="90" y="102" width="28" height="6" rx="3" fill="#cad9e8"/><rect x="74" y="118" width="10" height="10" rx="2" fill="#6b94bd"/><rect x="90" y="120" width="32" height="6" rx="3" fill="#cad9e8"/><circle cx="134" cy="136" r="18" fill="#fff" stroke="#2b4661" stroke-width="5"/><path d="M147 149l14 14" stroke="#2b4661" stroke-width="7" stroke-linecap="round"/></svg>`,
+  consult: `<svg viewBox="0 0 200 200" aria-hidden="true"><rect x="62" y="28" width="76" height="144" rx="14" fill="#fff" stroke="#2b4661" stroke-width="4"/><rect x="88" y="37" width="24" height="5" rx="2.5" fill="#2b4661"/><rect x="72" y="56" width="42" height="16" rx="8" fill="#e6edf4"/><rect x="86" y="80" width="42" height="16" rx="8" fill="#2b4661"/><rect x="72" y="104" width="48" height="16" rx="8" fill="#e6edf4"/><circle cx="80" cy="134" r="2.5" fill="#9cb8d3"/><circle cx="88" cy="134" r="2.5" fill="#9cb8d3"/><circle cx="96" cy="134" r="2.5" fill="#9cb8d3"/><circle cx="136" cy="140" r="20" fill="#1f9d55"/><path d="M136 129a11 11 0 0 0-9.5 16.5l-1.5 5.5 5.7-1.5A11 11 0 1 0 136 129Z" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>`,
+  agree: `<svg viewBox="0 0 200 200" aria-hidden="true"><rect x="56" y="30" width="88" height="128" rx="8" fill="#fff" stroke="#2b4661" stroke-width="4"/><rect x="70" y="46" width="44" height="7" rx="3.5" fill="#2b4661"/><rect x="70" y="64" width="60" height="5" rx="2.5" fill="#cad9e8"/><rect x="70" y="76" width="56" height="5" rx="2.5" fill="#cad9e8"/><rect x="70" y="88" width="60" height="5" rx="2.5" fill="#cad9e8"/><rect x="70" y="100" width="40" height="5" rx="2.5" fill="#cad9e8"/><path d="M72 130c6-10 10-10 12-2s6 6 10-2 8-6 12 0" fill="none" stroke="#46739f" stroke-width="3" stroke-linecap="round"/><rect x="70" y="138" width="46" height="2" rx="1" fill="#9cb8d3"/><circle cx="140" cy="146" r="20" fill="#2b4661"/><path d="M131 146l6 6 12-12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+};
+
 const HOW_IT_WORKS = [
   {
+    art: "explore",
     title: "Jelajahi Kebutuhan",
     description: "Pilih kategori layanan yang relevan, atau baca materi edukasi untuk memahami kebutuhanmu lebih dulu.",
   },
   {
+    art: "consult",
     title: "Konsultasi via WhatsApp",
     description: "Sampaikan kebutuhanmu langsung ke tim kami — konsultasi awal tanpa komitmen.",
   },
   {
+    art: "agree",
     title: "Kesepakatan & Pengerjaan",
     description: "Ruang lingkup pekerjaan dan ketentuan disepakati bersama sebelum pekerjaan resmi dimulai.",
   },
@@ -100,8 +121,40 @@ function insightPanel({ title, body, href, image }) {
   </a>`;
 }
 
+function serviceSlide({ title, href, icon, image, pos }) {
+  return `
+  <a class="service-slide" href="${href}">
+    <img src="${image}" alt="" loading="lazy" width="1456" height="1088" style="object-position:${pos};" />
+    <span class="service-slide__icon">${icons[icon]()}</span>
+    <h3 class="service-slide__title">${title}</h3>
+  </a>`;
+}
+
+// Article tile in umbra.law's "Insights" format: photo, date, category, title.
+function articleTile(article) {
+  return `
+  <a class="article-tile" href="/media/${article.slug}/">
+    <div class="article-tile__media">
+      <img src="${article.image}" alt="" loading="lazy" width="1456" height="1088" />
+      <span class="article-tile__overlay" aria-hidden="true">${icons.plus()}</span>
+    </div>
+    <span class="article-tile__date">${article.date}</span>
+    <span class="article-tile__cat">${article.category}</span>
+    <h3 class="article-tile__title">${article.title}</h3>
+  </a>`;
+}
+
+function stepCard({ art, title, description }, i) {
+  return `
+  <div class="step-card">
+    <div class="step-card__art">${STEP_ART[art]}</div>
+    <h3 class="step-card__title">${i + 1}. ${title}</h3>
+    <p class="step-card__desc">${description}</p>
+  </div>`;
+}
+
 function home(config) {
-  const featuredArticles = articles.slice(0, 3);
+  const featuredArticles = articles.slice(0, 4);
 
   return `
   <section class="hero hero--photo" style="background-image:url('/assets/photos/hero-building.jpg');">
@@ -129,22 +182,13 @@ function home(config) {
 
   <section class="section section--dim">
     <div class="container">
-      ${sectionHeading({
-        eyebrow: "Bagaimana Prosesnya",
-        title: "How It Works",
-        lede: "Tiga langkah sederhana dari menemukan kebutuhanmu hingga pekerjaan dimulai.",
-      })}
-      <div class="editorial-grid editorial-grid--3col">
-        ${HOW_IT_WORKS.map(
-          (s, i) => `
-        <div class="editorial-item">
-          <span class="mono-index">0${i + 1}</span>
-          <div>
-            <h3>${s.title}</h3>
-            <p>${s.description}</p>
-          </div>
-        </div>`
-        ).join("")}
+      <h2 class="display center-heading">Layanan Paling Diminati</h2>
+      <div class="service-carousel" data-carousel>
+        <button class="service-carousel__btn service-carousel__btn--prev" type="button" aria-label="Sebelumnya" data-carousel-prev>${icons.chevronLeft()}</button>
+        <div class="service-carousel__track" data-carousel-track>
+          ${FEATURED_SERVICES.map(serviceSlide).join("")}
+        </div>
+        <button class="service-carousel__btn service-carousel__btn--next" type="button" aria-label="Berikutnya" data-carousel-next>${icons.chevronRight()}</button>
       </div>
     </div>
   </section>
@@ -152,13 +196,11 @@ function home(config) {
   <section class="section">
     <div class="container">
       ${sectionHeading({
-        eyebrow: "Knowledge",
-        title: "Wawasan untuk Profesi Anda",
-        lede: "Perspektif, analisis, dan wawasan untuk memahami dunia kenotariatan.",
+        title: "Media &amp; Artikel",
         link: { href: "/media/", label: "Lihat Semua Artikel" },
       })}
-      <div class="card-grid card-grid--3">
-        ${featuredArticles.map(articleCard).join("")}
+      <div class="article-tile-grid">
+        ${featuredArticles.map(articleTile).join("")}
       </div>
     </div>
   </section>
@@ -170,7 +212,7 @@ function home(config) {
         <h2>ORDER.NOTARIS ACADEMY</h2>
         <p class="academy-teaser__sub">Belajar dari praktisi dan akademisi.</p>
         <p class="body">Program pembelajaran untuk membangun kompetensi dan kesiapan profesional di dunia
-        kenotariatan — dari mahasiswa M.Kn. hingga praktisi yang ingin memperdalam praktik.</p>
+        kenotariatan dari mahasiswa M.Kn., ALB INI &amp; IPPAT hingga praktisi yang ingin memperdalam praktik.</p>
         <div class="academy-teaser__cta">
           <a class="btn-text btn-text--onlight" href="/academy/">Segera Hadir ${icons.arrowRight()}</a>
         </div>
@@ -178,11 +220,13 @@ function home(config) {
     </div>
   </section>
 
-  <section class="photo-band" style="background-image:url('/assets/photos/library-archive.jpg');">
-    <div class="container photo-band__inner">
-      <span class="eyebrow eyebrow--onlight">Komitmen Kami</span>
-      <h2 class="display" style="font-size:26px;margin-top:10px;">Ilmu kenotariatan yang tersusun rapi, bukan tersebar dan sulit ditemukan.</h2>
-      <p class="lede" style="margin-top:12px;max-width:56ch;">Setiap artikel, kelas, dan materi di ${config.brand.name} disusun berjenjang — dari pengantar untuk mahasiswa tingkat pertama hingga praktik lanjutan untuk profesional.</p>
+  <section class="section">
+    <div class="container">
+      <h2 class="display center-heading">Cara Mudah Memulai bersama ${config.brand.name}</h2>
+      <p class="center-sub">Proses jelas, terarah, dan tanpa komitmen di awal.</p>
+      <div class="step-grid">
+        ${HOW_IT_WORKS.map(stepCard).join("")}
+      </div>
     </div>
   </section>
 
@@ -195,6 +239,29 @@ function home(config) {
       </p>
     </div>
   </section>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-carousel]');
+      if (!root) return;
+      var track = root.querySelector('[data-carousel-track]');
+      function step() {
+        var card = track.querySelector('.service-slide');
+        return card ? card.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0) : 300;
+      }
+      function atEnd() { return track.scrollLeft + track.clientWidth >= track.scrollWidth - 4; }
+      function next() { if (atEnd()) { track.scrollTo({ left: 0, behavior: 'smooth' }); } else { track.scrollBy({ left: step(), behavior: 'smooth' }); } }
+      function prev() { if (track.scrollLeft <= 4) { track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' }); } else { track.scrollBy({ left: -step(), behavior: 'smooth' }); } }
+      root.querySelector('[data-carousel-next]').addEventListener('click', next);
+      root.querySelector('[data-carousel-prev]').addEventListener('click', prev);
+      // Auto-advance every 4s; pauses while hovered/focused/touched, off for reduced motion.
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var paused = false;
+      ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { root.addEventListener(ev, function () { paused = true; }, { passive: true }); });
+      ['mouseleave', 'focusout'].forEach(function (ev) { root.addEventListener(ev, function () { paused = false; }); });
+      setInterval(function () { if (!paused && !document.hidden) next(); }, 4000);
+    })();
+  </script>
   `;
 }
 
