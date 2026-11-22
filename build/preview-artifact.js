@@ -16,6 +16,8 @@ const home = require("./pages/home");
 const education = require("./pages/education");
 const mediaIndex = require("./pages/media");
 const mediaSlugPage = require("./pages/mediaSlug");
+const mediaNewsPage = require("./pages/mediaNews");
+const news = require("./content/news");
 const servicesIndex = require("./pages/services");
 const servicesSlugPage = require("./pages/servicesSlug");
 const academyPage = require("./pages/academy");
@@ -65,6 +67,7 @@ const routes = [
   { path: "/contact/", title: "Kontak", minimal: false, body: contactPage(inlineConfig) },
 ];
 articles.forEach((a) => routes.push({ path: `/media/${a.slug}/`, title: a.title, minimal: false, body: mediaSlugPage(inlineConfig, a) }));
+news.forEach((n) => routes.push({ path: `/media/kabar/${n.slug}/`, title: n.title, minimal: false, body: mediaNewsPage(inlineConfig, n) }));
 services
   .filter((s) => s.category !== "akademik")
   .forEach((s) => routes.push({ path: `/services/${s.slug}/`, title: s.title, minimal: false, body: servicesSlugPage(inlineConfig, s) }));
@@ -81,7 +84,10 @@ function safeForInlineScript(jsonString) {
 }
 
 const titlesMap = safeForInlineScript(JSON.stringify(Object.fromEntries(routes.map((r) => [r.path, r.title]))));
-const pagesMap = safeForInlineScript(JSON.stringify(Object.fromEntries(routes.map((r) => [r.path, inlinePhotoRefs(r.body)]))));
+// Photos are embedded once (PHOTOS map) and swapped in at render time, instead of being
+// inlined into every page that references them — keeps the single file well under size limits.
+const pagesMap = safeForInlineScript(JSON.stringify(Object.fromEntries(routes.map((r) => [r.path, r.body]))));
+const photosMap = JSON.stringify(photoDataUris);
 const minimalPaths = safeForInlineScript(JSON.stringify(routes.filter((r) => r.minimal).map((r) => r.path)));
 const navItems = safeForInlineScript(JSON.stringify(config.nav));
 const waLink = config.waLink();
@@ -151,6 +157,12 @@ ${css}
   var PAGES = ${pagesMap};
   var MINIMAL_PATHS = ${minimalPaths};
   var NAV = ${navItems};
+  var PHOTOS = ${photosMap};
+  function swapPhotos(root) {
+    root.querySelectorAll('img[src^="/assets/photos/"]').forEach(function (img) { var u = PHOTOS[img.getAttribute('src')]; if (u) img.src = u; });
+    root.querySelectorAll('a[href^="/assets/photos/"]').forEach(function (a) { a.removeAttribute('target'); a.setAttribute('href', '#'); a.addEventListener('click', function (e) { e.preventDefault(); }); });
+    root.querySelectorAll('[style*="/assets/photos/"]').forEach(function (el) { var st = el.getAttribute('style'); Object.keys(PHOTOS).forEach(function (k) { if (st.indexOf(k) !== -1) st = st.split(k).join(PHOTOS[k]); }); el.setAttribute('style', st); });
+  }
 
   var navDesktop = document.getElementById('navDesktopList');
   var navMobile = document.getElementById('navMobileList');
@@ -163,9 +175,11 @@ ${css}
     navMobile.innerHTML = html;
   }
 
+  var lastPath = null;
   function currentPath() {
     var hash = location.hash.replace(/^#/, '') || '/';
-    return hash in PAGES ? hash : '/';
+    var base = hash.split('#')[0];
+    return base in PAGES ? base : '/';
   }
 
   function render() {
@@ -181,19 +195,31 @@ ${css}
     Array.prototype.forEach.call(document.getElementById('pageRoot').querySelectorAll('script'), function (old) {
       var s = document.createElement('script'); s.textContent = old.textContent; old.parentNode.replaceChild(s, old);
     });
+    swapPhotos(document.getElementById('pageRoot'));
     renderNav(p);
     window.scrollTo(0, 0);
     if (window.initReveal) window.initReveal();
   }
 
-  window.addEventListener('hashchange', render);
+  window.addEventListener('hashchange', function () {
+    if (location.hash.indexOf('#/') === 0 || location.hash === '') render();
+  });
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a');
     if (!a) return;
     var href = a.getAttribute('href');
-    if (href && href.indexOf('#/') === 0) {
-      // in-site navigation — handled by hashchange
+    if (!href || a.target === '_blank') return;
+    if (href.indexOf('#/') === 0) return; // handled by hashchange
+    if (href.charAt(0) === '#') { // in-page anchor: scroll, keep the current page
+      var el = document.getElementById(href.slice(1));
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
       return;
+    }
+    if (href.charAt(0) === '/' && href.indexOf('/assets/') !== 0) { // internal page link
+      e.preventDefault();
+      var parts = href.split('#');
+      location.hash = '#' + parts[0];
+      if (parts[1]) setTimeout(function () { var el = document.getElementById(parts[1]); if (el) el.scrollIntoView(); }, 60);
     }
   });
 

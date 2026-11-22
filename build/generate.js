@@ -11,6 +11,8 @@ const home = require("./pages/home");
 const education = require("./pages/education");
 const mediaIndex = require("./pages/media");
 const mediaSlugPage = require("./pages/mediaSlug");
+const mediaNewsPage = require("./pages/mediaNews");
+const news = require("./content/news");
 const servicesIndex = require("./pages/services");
 const servicesSlugPage = require("./pages/servicesSlug");
 const academyPage = require("./pages/academy");
@@ -39,6 +41,9 @@ const routes = [
 
 articles.forEach((a) =>
   routes.push({ path: `/media/${a.slug}/`, title: a.title, description: a.summary, minimal: false, body: mediaSlugPage(config, a) })
+);
+news.forEach((n) =>
+  routes.push({ path: `/media/kabar/${n.slug}/`, title: n.title, description: n.summary, minimal: false, body: mediaNewsPage(config, n) })
 );
 // Bimbingan Jurnal Ilmiah (category "akademik") is surfaced from /academy/ instead of
 // getting its own /services/ page — see the note on that entry in content/services.js.
