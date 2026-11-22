@@ -2,7 +2,6 @@ const icons = require("../components/icons");
 const sectionHeading = require("../components/sectionHeading");
 const { articleCard } = require("../components/card");
 const articles = require("../content/articles");
-const services = require("../content/services");
 
 const PILLARS = [
   {
@@ -10,6 +9,7 @@ const PILLARS = [
     title: "EDUKASI",
     description: "Artikel, insight, dan pembelajaran untuk memahami dunia kenotariatan.",
     href: "/education/",
+    image: "/assets/photos/law-books.jpg",
     linkLabel: "Jelajahi Edukasi",
   },
   {
@@ -17,6 +17,7 @@ const PILLARS = [
     title: "MEDIA",
     description: "Berita, perspektif, dan perkembangan dunia kenotariatan.",
     href: "/media/",
+    image: "/assets/photos/writing-desk.jpg",
     linkLabel: "Baca Media",
   },
   {
@@ -24,16 +25,9 @@ const PILLARS = [
     title: "LAYANAN",
     description: "Solusi dan layanan kenotariatan untuk kebutuhan profesional.",
     href: "/services/",
+    image: "/assets/photos/pen-seal.jpg",
     linkLabel: "Jelajahi Layanan",
   },
-];
-
-const AUDIENCE = [
-  { title: "Mahasiswa Hukum", description: "Bangun fondasi hukum dan kenali dunia kenotariatan sejak dini." },
-  { title: "Mahasiswa M.Kn.", description: "Perluas wawasan akademik dan persiapkan perjalanan profesional." },
-  { title: "Notaris & PPAT", description: "Temukan insight, informasi, dan layanan yang relevan dengan praktik." },
-  { title: "Legal Professional", description: "Perspektif hukum untuk kebutuhan profesional dan korporasi." },
-  { title: "ALB INI & IPPAT", description: "Ikuti perkembangan regulasi dan wawasan praktis sebagai Anggota Luar Biasa menuju pengangkatan sebagai notaris/PPAT." },
 ];
 
 // 3 service categories for the "Apa yang Anda butuhkan?" entry section. Each category
@@ -75,28 +69,24 @@ const HOW_IT_WORKS = [
   },
 ];
 
-function editorialItem({ index, kicker, title, description, href, linkLabel }) {
+// Pillar card with a photo on top. Each photo matches the hero photo of the page the
+// card links to (Edukasi/Media/Layanan), so the click lands somewhere visually familiar.
+function pillarPhotoCard({ index, kicker, title, description, href, image, linkLabel }) {
   return `
-  <a class="editorial-item" href="${href}" style="text-decoration:none;">
-    <span class="mono-index">0${index}</span>
-    <div>
-      ${kicker ? `<span class="editorial-item__kicker">${kicker}</span>` : ""}
+  <a class="pillar-photo" href="${href}">
+    <div class="pillar-photo__media">
+      <img src="${image}" alt="" loading="lazy" width="1456" height="1088" />
+    </div>
+    <div class="pillar-photo__body">
+      <div class="pillar-photo__meta">
+        <span class="mono-index">0${index}</span>
+        <span class="editorial-item__kicker">${kicker}</span>
+      </div>
       <h3>${title}</h3>
       <p>${description}</p>
       <span class="editorial-item__link">${linkLabel} ${icons.arrowRight()}</span>
     </div>
   </a>`;
-}
-
-function audienceItem({ index, title, description }) {
-  return `
-  <div class="editorial-item">
-    <span class="mono-index">0${index}</span>
-    <div>
-      <h3 style="font-size:18px;">${title}</h3>
-      <p>${description}</p>
-    </div>
-  </div>`;
 }
 
 function categoryCard({ index, title, description, href, icon }) {
@@ -110,7 +100,6 @@ function categoryCard({ index, title, description, href, icon }) {
 
 function home(config) {
   const featuredArticles = articles.slice(0, 3);
-  const featuredServices = services.filter((s) => s.category !== "akademik").slice(0, 3);
 
   return `
   <section class="hero hero--photo" style="background-image:url('/assets/photos/hero-building.jpg');">
@@ -124,7 +113,15 @@ function home(config) {
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--pillars" aria-label="Learn, Inform, Serve">
+    <div class="container">
+      <div class="pillar-photo-grid">
+        ${PILLARS.map((p, i) => pillarPhotoCard({ index: i + 1, ...p })).join("")}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dim">
     <div class="container">
       ${sectionHeading({
         eyebrow: "Mulai di Sini",
@@ -137,64 +134,11 @@ function home(config) {
     </div>
   </section>
 
-  <section class="section section--dim">
-    <div class="container">
-      ${sectionHeading({
-        eyebrow: "Layanan Unggulan",
-        title: "Layanan Notarial & PPAT",
-        lede: "Didampingi melalui proses yang jelas, dengan konsultasi awal sebelum penugasan dimulai.",
-      })}
-      <div class="services-list">
-        ${featuredServices
-          .map(
-            (s) => `
-          <div class="service-row">
-            <div>
-              <div class="service-row__title">${s.title}</div>
-              <p class="service-row__desc">${s.summary}</p>
-            </div>
-            <a class="service-row__link" href="/services/${s.slug}/">Lihat Detail ${icons.arrowRight()}</a>
-          </div>`
-          )
-          .join("")}
-      </div>
-      <div class="services-actions">
-        <a class="btn btn-navy" href="/services/">Jelajahi Semua Layanan ${icons.arrowRight()}</a>
-        <a class="btn-text" href="${config.waLink()}" target="_blank" rel="noopener">Konsultasi via WhatsApp ${icons.arrowRight()}</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      ${sectionHeading({
-        eyebrow: "Mengapa ORDER.NOTARIS",
-        title: "Tiga Pilar ORDER.NOTARIS",
-        lede: "Ekosistem yang dirancang untuk menemani perjalanan profesional Anda — dari belajar hingga berkarya.",
-      })}
-      <div class="editorial-grid editorial-grid--3col">
-        ${PILLARS.map((p, i) => editorialItem({ index: i + 1, ...p })).join("")}
-      </div>
-    </div>
-  </section>
-
   <section class="photo-band" style="background-image:url('/assets/photos/library-archive.jpg');">
     <div class="container photo-band__inner">
       <span class="eyebrow eyebrow--onlight">Komitmen Kami</span>
       <h2 class="display" style="font-size:26px;margin-top:10px;">Ilmu kenotariatan yang tersusun rapi, bukan tersebar dan sulit ditemukan.</h2>
       <p class="lede" style="margin-top:12px;max-width:56ch;">Setiap artikel, kelas, dan materi di ${config.brand.name} disusun berjenjang — dari pengantar untuk mahasiswa tingkat pertama hingga praktik lanjutan untuk profesional.</p>
-    </div>
-  </section>
-
-  <section class="section section--dim">
-    <div class="container">
-      ${sectionHeading({
-        eyebrow: "Untuk Siapa",
-        title: "Dibangun untuk Dunia Kenotariatan",
-      })}
-      <div class="editorial-grid editorial-grid--2col">
-        ${AUDIENCE.map((a, i) => audienceItem({ index: i + 1, ...a })).join("")}
-      </div>
     </div>
   </section>
 
