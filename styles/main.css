@@ -422,6 +422,44 @@ h3.display { font-size: 21px; }
   .editorial-grid--3col { grid-template-columns: repeat(3, 1fr); column-gap: 32px; }
   .editorial-grid--3col .editorial-item { grid-column: span 1; }
   .editorial-grid--3col .editorial-item p { max-width: 30ch; }
+  /* In 3 columns every item gets the bottom rule, not just the last one — otherwise only
+     the right-hand column shows a closing line. */
+  .editorial-grid--3col .editorial-item { border-bottom: 1px solid var(--line); }
+}
+/* Pillars strip directly under the hero: no heading above it, so less top padding. */
+.section--pillars { padding-top: 40px; padding-bottom: 40px; }
+@media (min-width: 768px) { .section--pillars { padding-top: 56px; padding-bottom: 56px; } }
+
+/* Pillar photo cards (Edukasi / Media / Layanan) under the hero */
+.pillar-photo-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.pillar-photo {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--motion-200) var(--ease-out), box-shadow var(--motion-200) var(--ease-out);
+}
+.pillar-photo:hover { border-color: var(--line-strong); box-shadow: var(--shadow-lift); }
+.pillar-photo:focus-visible { outline: 2px solid var(--navy-700); outline-offset: 3px; }
+.pillar-photo__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--navy-900); }
+.pillar-photo__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-300) var(--ease-out); }
+.pillar-photo:hover .pillar-photo__media img { transform: scale(1.04); }
+.pillar-photo__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 26px; }
+.pillar-photo__meta { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.pillar-photo__meta .editorial-item__kicker { margin-bottom: 0; }
+.pillar-photo h3 { font-size: 22px; margin-bottom: 8px; }
+.pillar-photo p { color: var(--ink-600); font-size: 14.5px; }
+.pillar-photo .editorial-item__link { margin-top: auto; padding-top: 16px; align-self: flex-start; }
+.pillar-photo:hover .editorial-item__link { border-bottom-color: var(--navy-900); }
+@media (min-width: 768px) {
+  .pillar-photo-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .pillar-photo__media { aspect-ratio: 3 / 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pillar-photo, .pillar-photo__media img { transition: none; }
+  .pillar-photo:hover .pillar-photo__media img { transform: none; }
 }
 
 /* ---- Services: editorial list (homepage teaser — distinct from /services/ cards) */

@@ -21,6 +21,7 @@
   var SELECTORS = [
     "main > section",
     ".pillar-card",
+    ".pillar-photo",
     ".editorial-item",
     ".article-card",
     ".service-card",
