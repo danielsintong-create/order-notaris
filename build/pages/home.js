@@ -116,11 +116,8 @@ function home(config) {
   <section class="hero hero--photo" style="background-image:url('/assets/photos/hero-building.jpg');">
     <div class="hero__grid" aria-hidden="true"></div>
     <div class="container hero__inner">
-      <span class="eyebrow eyebrow--onlight">Ekosistem Digital Kenotariatan Indonesia</span>
-      <h1 class="hero__title">
-        Dunia Kenotariatan Indonesia,
-        <span class="accent">dalam Satu Ekosistem.</span>
-      </h1>
+      <h1 class="hero__title">Ekosistem Kenotariatan Indonesia</h1>
+      <p class="hero__tagline">Learn. Inform. Serve.</p>
       <div class="hero__cta">
         <a class="btn-text btn-text--onlight" href="/education/">Jelajahi ${icons.arrowRight()}</a>
       </div>
