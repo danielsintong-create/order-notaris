@@ -22,7 +22,7 @@ function footer(config) {
           <span class="brand__word" style="color:#fff">ORDER<b style="color:var(--navy-300)">.NOTARIS</b></span>
         </a>
         <p class="small" style="letter-spacing:0.08em;font-weight:700;color:var(--navy-300);margin-top:2px;">LEARN. INFORM. SERVE.</p>
-        <p>${config.brand.description}</p>
+        <p class="site-footer__desc">${config.brand.description}</p>
       </div>
       <div class="site-footer__cols">${cols}</div>
     </div>

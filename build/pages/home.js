@@ -56,12 +56,13 @@ const INSIGHT_PANELS = [
 // "Layanan Paling Diminati" carousel (pattern from hukumku.id): tall photo cards with a
 // navy tint, a white icon top-left and the title bottom-left. Photos are temporary picks
 // from the existing set until service-specific photos are supplied.
+// Items without their own page link to WhatsApp with a prefilled message (waText).
 const FEATURED_SERVICES = [
-  { title: "Akta Notaris", href: "/services/pembuatan-akta-notaris/", icon: "stamp", image: "/assets/photos/pen-seal.jpg", pos: "70% 60%" },
-  { title: "Peralihan Hak Tanah (PPAT)", href: "/services/ppat-peralihan-hak-tanah/", icon: "landHome", image: "/assets/photos/hero-building.jpg", pos: "65% 50%" },
-  { title: "Hukum Korporasi & Pembiayaan", href: "/services/konsultasi-hukum-korporasi/", icon: "building", image: "/assets/photos/meeting-room.jpg", pos: "40% 60%" },
-  { title: "Legal Due Diligence", href: "/services/legal-due-diligence/", icon: "searchDoc", image: "/assets/photos/library-archive.jpg", pos: "50% 50%" },
+  { title: "Template Soal ALB INI dan IPPAT", href: "/academy/", icon: "clipboard", image: "/assets/photos/law-books.jpg", pos: "30% 50%" },
+  { title: "Konsultasi Akta Notaris", href: "/services/pembuatan-akta-notaris/", icon: "stamp", image: "/assets/photos/pen-seal.jpg", pos: "70% 60%" },
+  { title: "Konsultasi Kasus Pengurusan Pertanahan", href: "/services/ppat-peralihan-hak-tanah/", icon: "landHome", image: "/assets/photos/hero-building.jpg", pos: "65% 50%" },
   { title: "Bimbingan Jurnal Ilmiah", href: "/academy/", icon: "cap", image: "/assets/photos/writing-desk.jpg", pos: "30% 60%" },
+  { title: "Konsultasi Penyelesaian Hutang", waText: "Halo ORDER.NOTARIS, saya ingin konsultasi mengenai penyelesaian hutang.", icon: "scale", image: "/assets/photos/meeting-room.jpg", pos: "45% 60%" },
 ];
 
 // Process steps, laid out like a fintech "cara mudah" flow: an illustration tile, a
@@ -121,9 +122,10 @@ function insightPanel({ title, body, href, image }) {
   </a>`;
 }
 
-function serviceSlide({ title, href, icon, image, pos }) {
+function serviceSlide(config, { title, href, waText, icon, image, pos }) {
+  const link = waText ? `href="${config.waLink(waText)}" target="_blank" rel="noopener"` : `href="${href}"`;
   return `
-  <a class="service-slide" href="${href}">
+  <a class="service-slide" ${link}>
     <img src="${image}" alt="" loading="lazy" width="1456" height="1088" style="object-position:${pos};" />
     <span class="service-slide__icon">${icons[icon]()}</span>
     <h3 class="service-slide__title">${title}</h3>
@@ -186,7 +188,7 @@ function home(config) {
       <div class="service-carousel" data-carousel>
         <button class="service-carousel__btn service-carousel__btn--prev" type="button" aria-label="Sebelumnya" data-carousel-prev>${icons.chevronLeft()}</button>
         <div class="service-carousel__track" data-carousel-track>
-          ${FEATURED_SERVICES.map(serviceSlide).join("")}
+          ${FEATURED_SERVICES.map((s) => serviceSlide(config, s)).join("")}
         </div>
         <button class="service-carousel__btn service-carousel__btn--next" type="button" aria-label="Berikutnya" data-carousel-next>${icons.chevronRight()}</button>
       </div>
@@ -212,9 +214,9 @@ function home(config) {
         <h2>ORDER.NOTARIS ACADEMY</h2>
         <p class="academy-teaser__sub">Belajar dari praktisi dan akademisi.</p>
         <p class="body">Program pembelajaran untuk membangun kompetensi dan kesiapan profesional di dunia
-        kenotariatan dari mahasiswa M.Kn., ALB INI &amp; IPPAT hingga praktisi yang ingin memperdalam praktik.</p>
+        kenotariatan dan PPAT, sejak lulus M.Kn., masa ALB INI &amp; IPPAT, hingga lulus Ujian Kode Etik Notaris dan PPAT.</p>
         <div class="academy-teaser__cta">
-          <a class="btn-text btn-text--onlight" href="/academy/">Segera Hadir ${icons.arrowRight()}</a>
+          <a class="btn-text btn-text--onlight" href="/academy/">Akses Akademi ${icons.arrowRight()}</a>
         </div>
       </div>
     </div>
@@ -222,21 +224,11 @@ function home(config) {
 
   <section class="section">
     <div class="container">
-      <h2 class="display center-heading">Cara Mudah Memulai bersama ${config.brand.name}</h2>
+      <h2 class="display center-heading">Cara Mudah Memulai Bersama ${config.brand.name}</h2>
       <p class="center-sub">Proses jelas, terarah, dan tanpa komitmen di awal.</p>
       <div class="step-grid">
         ${HOW_IT_WORKS.map(stepCard).join("")}
       </div>
-    </div>
-  </section>
-
-  <section class="credibility-strip">
-    <div class="container">
-      <span class="eyebrow" style="justify-content:center;">Dibangun untuk Komunitas Hukum Indonesia</span>
-      <p>
-        <strong>Profesor</strong> · <strong>Notaris</strong> · <strong>PPAT</strong> · <strong>Advokat</strong> ·
-        <strong>Mahasiswa M.Kn.</strong> · <strong>Mahasiswa Hukum</strong> · <strong>Profesional Legal Korporat</strong>
-      </p>
     </div>
   </section>
 

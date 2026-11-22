@@ -12,7 +12,7 @@ const config = {
     name: "ORDER.NOTARIS",
     shortTagline: "Ekosistem Digital Kenotariatan Indonesia",
     description:
-      "ORDER.NOTARIS adalah ekosistem digital untuk edukasi, media, pengembangan profesional, dan layanan kenotariatan Indonesia — dibangun untuk notaris, PPAT, akademisi, mahasiswa M.Kn., mahasiswa hukum, dan profesional legal korporat.",
+      "ORDER.NOTARIS adalah ekosistem digital kenotariatan Indonesia yang menghimpun edukasi, media, dan layanan dalam satu platform. Kami mendampingi perjalanan profesional di bidang kenotariatan dan PPAT, sejak lulus M.Kn., masa ALB INI & IPPAT, hingga lulus Ujian Kode Etik Notaris dan PPAT.",
     logo: {
       navy: "/assets/logo-navy.png",
       white: "/assets/logo-white.png",

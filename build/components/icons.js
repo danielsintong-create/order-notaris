@@ -28,6 +28,8 @@ const icons = {
   chevronLeft: () => svg('<path d="M15 6l-6 6 6 6"/>'),
   plus: () => svg('<path d="M12 5v14M5 12h14"/>'),
   // service icons (white, on photo cards)
+  clipboard: () => svg('<rect x="5" y="4.5" width="14" height="16.5" rx="1.6"/><path d="M9 4.5V3.5h6v1"/><path d="M8.5 10l1.2 1.2L12 9"/><path d="M13.5 10.5H16"/><path d="M8.5 15l1.2 1.2L12 14"/><path d="M13.5 15.5H16"/>'),
+  scale: () => svg('<path d="M12 4v16"/><path d="M8 20h8"/><path d="M5 7h14"/><path d="M12 4.5 9 6.5M12 4.5l3 2"/><path d="M5 7 2.5 13a2.6 2.6 0 0 0 5 0L5 7Z"/><path d="m19 7-2.5 6a2.6 2.6 0 0 0 5 0L19 7Z"/>'),
   stamp: () => svg('<path d="M9.5 3.5h5v4.2c0 1 .6 1.9 1.4 2.4l.6.4c.9.5 1.5 1.5 1.5 2.5V14H6v-1c0-1 .6-2 1.5-2.5l.6-.4c.8-.5 1.4-1.4 1.4-2.4V3.5Z"/><path d="M5 17h14"/><path d="M7 20.5h10"/>'),
   landHome: () => svg('<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.8V20h13V9.8"/><path d="M10 20v-5h4v5"/>'),
   building: () => svg('<rect x="5" y="3.5" width="14" height="17" rx="1"/><path d="M9 7.5h2M13 7.5h2M9 11h2M13 11h2M9 14.5h2M13 14.5h2"/><path d="M10.5 20.5v-3h3v3"/>'),

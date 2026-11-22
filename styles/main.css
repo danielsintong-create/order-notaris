@@ -522,8 +522,8 @@ h3.display { font-size: 21px; }
 .service-carousel__track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 78%;
-  column-gap: 16px;
+  grid-auto-columns: 62%;
+  column-gap: 14px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -535,8 +535,8 @@ h3.display { font-size: 21px; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  aspect-ratio: 3 / 4;
-  padding: 28px 26px;
+  aspect-ratio: 4 / 5;
+  padding: 20px 18px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   color: var(--white);
@@ -553,9 +553,9 @@ h3.display { font-size: 21px; }
   background: linear-gradient(180deg, rgba(16, 27, 38, 0.55) 0%, rgba(43, 70, 97, 0.55) 45%, rgba(16, 27, 38, 0.85) 100%);
   transition: opacity var(--motion-300) var(--ease-out);
 }
-.service-slide__icon { width: 52px; height: 52px; }
-.service-slide__icon svg { width: 52px; height: 52px; stroke-width: 1.4; }
-.service-slide__title { font-family: var(--font-sans); font-weight: 700; font-size: 21px; line-height: 1.35; color: var(--white); }
+.service-slide__icon { width: 38px; height: 38px; }
+.service-slide__icon svg { width: 38px; height: 38px; stroke-width: 1.5; }
+.service-slide__title { font-family: var(--font-sans); font-weight: 700; font-size: 16px; line-height: 1.35; color: var(--white); }
 .service-slide:hover img { transform: scale(1.05); }
 .service-slide:focus-visible { outline: 2px solid var(--navy-700); outline-offset: 3px; }
 .service-carousel__btn {
@@ -573,11 +573,14 @@ h3.display { font-size: 21px; }
 .service-carousel__btn--prev { left: -18px; }
 .service-carousel__btn--next { right: -18px; }
 @media (min-width: 768px) {
-  .service-carousel__track { grid-auto-columns: calc((100% - 16px) / 2); }
+  .service-carousel__track { grid-auto-columns: calc((100% - 32px) / 3); column-gap: 16px; }
   .service-carousel__btn { display: inline-flex; }
+  .service-slide { padding: 24px 22px; }
+  .service-slide__icon, .service-slide__icon svg { width: 44px; height: 44px; }
+  .service-slide__title { font-size: 18px; }
 }
 @media (min-width: 1024px) {
-  .service-carousel__track { grid-auto-columns: calc((100% - 48px) / 3); column-gap: 24px; }
+  .service-carousel__track { grid-auto-columns: calc((100% - 60px) / 4); column-gap: 20px; }
   .service-carousel__btn--prev { left: -24px; }
   .service-carousel__btn--next { right: -24px; }
 }
@@ -809,6 +812,9 @@ h3.display { font-size: 21px; }
 .site-footer__top { padding-top: 48px; padding-bottom: 32px; display: grid; gap: 32px; }
 .site-footer__brand { max-width: 360px; }
 .site-footer__brand p { margin-top: 12px; font-size: 13.5px; color: rgba(255,255,255,0.55); }
+/* Brand description: same type as the "What is ORDER.NOTARIS?" panel title (Lato bold, white),
+   at paragraph size. */
+.site-footer__brand .site-footer__desc { margin-top: 14px; font-family: var(--font-sans); font-weight: 700; font-size: 15px; line-height: 1.7; color: var(--white); }
 .site-footer__cols { display: grid; gap: 28px; grid-template-columns: repeat(2, 1fr); }
 .site-footer h4 { color: var(--white); font-family: var(--font-sans); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
 .site-footer__cols li { margin-bottom: 10px; }
@@ -951,4 +957,29 @@ h3.display { font-size: 21px; }
     transform: none !important;
     transition: none !important;
   }
+}
+
+/* ---- Phone layout tightening (< 768px): keep each homepage block compact ---- */
+@media (max-width: 767px) {
+  .center-heading { font-size: 24px; }
+  .center-sub { font-size: 15px; }
+  /* insight panels: shorter */
+  .insight-panel { min-height: 220px; }
+  .insight-panel__body { padding: 36px 22px 32px; }
+  .insight-panel__title { font-size: 19px; }
+  .insight-panel__content { margin-top: 12px; font-size: 14.5px; line-height: 1.6; }
+  /* pillar cards: photo left, text right */
+  .pillar-photo-grid { gap: 14px; }
+  .pillar-photo { flex-direction: row; }
+  .pillar-photo__media { width: 38%; flex-shrink: 0; aspect-ratio: auto; }
+  .pillar-photo__body { padding: 16px 16px 18px; }
+  .pillar-photo h3 { font-size: 18px; margin-bottom: 4px; }
+  .pillar-photo p { font-size: 13.5px; line-height: 1.5; }
+  .pillar-photo .editorial-item__link { padding-top: 10px; font-size: 13px; }
+  /* steps: illustration left, text right */
+  .step-grid { gap: 20px; margin-top: 28px; }
+  .step-card { display: grid; grid-template-columns: 96px 1fr; grid-template-rows: auto auto; column-gap: 16px; text-align: left; }
+  .step-card__art { grid-row: 1 / span 2; width: 96px; height: 96px; border-radius: 20px; margin: 0; align-self: center; }
+  .step-card__title { margin-top: 0; font-size: 17px; align-self: end; }
+  .step-card__desc { margin: 4px 0 0; max-width: none; font-size: 14px; line-height: 1.55; align-self: start; }
 }
