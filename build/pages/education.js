@@ -1,5 +1,6 @@
 const icons = require("../components/icons");
-const { STAGES, PREMIUM, QUIZ, FAQ } = require("../content/curriculum");
+const { STAGES, QUIZ, FAQ } = require("../content/curriculum");
+const { STAGE_LABELS, PRODUCTS } = require("../content/academyCatalog");
 
 // Edukasi = the learning hub. Free material is readable without signup; premium items are
 // shown locked with a "daftar minat" route until prices and checkout are set up.
@@ -11,7 +12,7 @@ function lessonItem(config, l) {
     return `
     <li class="lesson lesson--premium">
       <span class="lesson__icon">${icons.lock()}</span>
-      <span class="lesson__title">${l.title}</span>
+      <a class="lesson__title" href="/academy/#${l.product}">${l.title}</a>
       <span class="lesson-badge lesson-badge--premium">Premium</span>
     </li>`;
   }
@@ -62,14 +63,14 @@ function premiumCard(config, p) {
   <div class="premium-card">
     <div class="premium-card__top">
       <span class="lesson-badge lesson-badge--premium">${icons.lock()} Premium</span>
-      <span class="premium-card__stage">${p.stage}</span>
+      <span class="premium-card__stage">${STAGE_LABELS[p.stage]}</span>
     </div>
     <h3 class="premium-card__title">${p.title}</h3>
     <ul class="premium-card__points">
       ${p.points.map((pt) => `<li>${icons.check()}<span>${pt}</span></li>`).join("")}
     </ul>
     <p class="premium-card__price">${p.price ? p.price : "Harga segera diumumkan"}</p>
-    <a class="btn btn-navy btn-block" href="${config.waLink(`Halo ORDER.NOTARIS, saya ingin mendaftar minat untuk materi premium: ${p.title}`)}" target="_blank" rel="noopener">Daftar Minat</a>
+    <a class="btn btn-navy btn-block" href="/academy/#${p.id}">Lihat di Akademi</a>
   </div>`;
 }
 
@@ -148,10 +149,11 @@ function education(config) {
   <section class="section section--dim" id="premium">
     <div class="container">
       <h2 class="display center-heading">Materi Premium</h2>
-      <p class="center-sub">Pendalaman per tahap. Harga diumumkan saat materi dirilis — daftarkan minat Anda lebih dulu.</p>
+      <p class="center-sub">Pendalaman per tahap, tersedia di Akademi ORDER.NOTARIS.</p>
       <div class="premium-grid">
-        ${PREMIUM.map((p) => premiumCard(config, p)).join("")}
+        ${PRODUCTS.filter((p) => p.featured).map((p) => premiumCard(config, p)).join("")}
       </div>
+      <p class="premium-more"><a class="btn btn-outline" href="/academy/#katalog">Lihat Semua ${PRODUCTS.length} Materi di Akademi ${icons.arrowRight()}</a></p>
     </div>
   </section>
 

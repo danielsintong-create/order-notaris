@@ -1244,6 +1244,52 @@ a.lesson__title:hover { color: var(--navy-700); text-decoration: underline; text
 }
 @media (prefers-reduced-motion: reduce) { .news-feature__media img, .chip { transition: none; } }
 
+/* ==== Akademi (catalogue) ============================================================ */
+.premium-more { margin-top: 28px; text-align: center; }
+.academy-values { padding-top: 40px; padding-bottom: 40px; }
+.academy-values__grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.academy-value { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: start; }
+.academy-value__icon { width: 48px; height: 48px; border-radius: 12px; background: var(--navy-100); color: var(--navy-900); display: inline-flex; align-items: center; justify-content: center; }
+.academy-value__icon svg { width: 24px; height: 24px; }
+.academy-value h3 { font-family: var(--font-sans); font-weight: 700; font-size: 16px; color: var(--ink-900); }
+.academy-value p { margin-top: 4px; font-size: 14px; line-height: 1.6; color: var(--ink-600); }
+.filter-chips--center { justify-content: flex-start; margin-top: 24px; }
+.chip span { margin-left: 4px; font-size: 11px; opacity: 0.7; }
+.product-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.product-card {
+  display: flex; flex-direction: column; padding: 22px 20px;
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  scroll-margin-top: 120px;
+  transition: border-color var(--motion-200) var(--ease-out), box-shadow var(--motion-200) var(--ease-out);
+}
+.product-card:hover { border-color: var(--line-strong); box-shadow: var(--shadow-lift); }
+.product-card.is-highlight { border-color: var(--navy-900); box-shadow: 0 0 0 3px var(--navy-150); }
+.product-card__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.product-card__type { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy-900); }
+.product-card__icon { width: 34px; height: 34px; border-radius: 10px; background: var(--navy-900); color: var(--white); display: inline-flex; align-items: center; justify-content: center; }
+.product-card__icon svg { width: 18px; height: 18px; }
+.product-card__stage { font-size: 11.5px; font-weight: 700; color: var(--ink-400); text-align: right; }
+.product-card__title { margin-top: 16px; font-size: 19px; line-height: 1.3; }
+.product-card__desc { margin-top: 8px; font-size: 14.5px; line-height: 1.6; color: var(--ink-700); }
+.product-card__points { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 7px; }
+.product-card__points li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; font-size: 13.5px; color: var(--ink-700); }
+.product-card__points svg { width: 16px; height: 16px; margin-top: 2px; color: var(--navy-700); stroke-width: 2.2; }
+.product-card__note { margin-top: 12px; font-size: 12.5px; line-height: 1.5; color: var(--ink-400); }
+.product-card__foot { margin-top: auto; padding-top: 18px; }
+.product-card__meta { display: flex; flex-direction: column; gap: 2px; margin-bottom: 12px; padding-top: 14px; border-top: 1px solid var(--line); }
+.product-card__meta span { font-size: 12.5px; color: var(--ink-600); }
+.product-card__meta strong { font-family: var(--font-sans); font-weight: 700; font-size: 15px; color: var(--navy-900); }
+.academy-step__num {
+  width: 56px; height: 56px; margin: 0 auto; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--navy-900); color: var(--white); font-family: var(--font-display); font-weight: 700; font-size: 22px;
+}
+.academy-steps .step-card__title { margin-top: 18px; }
+@media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 768px) { .academy-values__grid { grid-template-columns: repeat(3, 1fr); gap: 32px; } .filter-chips--center { justify-content: center; flex-wrap: wrap; } }
+@media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+@media (prefers-reduced-motion: reduce) { .product-card { transition: none; } }
+
 /* ---- Phone layout tightening (< 768px): keep each homepage block compact ---- */
 @media (max-width: 767px) {
   .center-heading { font-size: 24px; }
@@ -1290,4 +1336,19 @@ a.lesson__title:hover { color: var(--navy-700); text-decoration: underline; text
   .news-hero__title, .article-hero__title { font-size: 24px; }
   .article-body p, .news-detail__text p { font-size: 16px; }
   .news-detail__flyer { max-width: 420px; }
+}
+
+/* Akademi — phone */
+@media (max-width: 767px) {
+  .academy-steps .step-card { grid-template-columns: 56px 1fr; }
+  .academy-step__num { grid-row: 1 / span 2; margin: 0; align-self: center; }
+  .academy-steps .step-card__title { margin-top: 0; }
+  .product-card { padding: 18px 16px; }
+  .product-card__title { margin-top: 12px; font-size: 18px; }
+  /* compact catalogue on phones: description carries the gist; price + button share a row */
+  .product-card__points, .product-card__note { display: none; }
+  .product-card__foot { padding-top: 14px; display: flex; align-items: center; gap: 12px; }
+  .product-card__meta { flex: 1; margin: 0; padding-top: 0; border-top: 0; }
+  .product-card__meta strong { font-size: 13.5px; }
+  .product-card__foot .btn { width: auto; flex-shrink: 0; padding: 11px 16px; }
 }

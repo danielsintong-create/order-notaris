@@ -24,7 +24,7 @@ const STAGES = [
       { type: "free", title: "5 Kesalahan Umum Mahasiswa M.Kn. Saat Menyusun Tesis", slug: "kesalahan-umum-tesis-mkn" },
       { type: "free", title: "Peta Kewenangan Notaris dan PPAT" },
       { type: "free", title: "Panduan Memilih Topik Tesis M.Kn." },
-      { type: "premium", title: "Template Kerangka Proposal & Tesis M.Kn." },
+      { type: "premium", title: "Template Kerangka Proposal & Tesis M.Kn.", product: "template-tesis-mkn" },
     ],
   },
   {
@@ -40,7 +40,7 @@ const STAGES = [
       { type: "free", title: "Status Hukum Organisasi Notaris: Kedudukan INI", slug: "status-hukum-organisasi-notaris-ini" },
       { type: "free", title: "Syarat & Jadwal Seleksi ALB INI" },
       { type: "free", title: "Ringkasan AD, ART & Peraturan Perkumpulan INI" },
-      { type: "premium", title: "Bank Soal Latihan Seleksi ALB INI + Pembahasan" },
+      { type: "premium", title: "Bank Soal Latihan Seleksi ALB INI + Pembahasan", product: "bank-soal-alb-ini" },
     ],
   },
   {
@@ -55,8 +55,8 @@ const STAGES = [
     lessons: [
       { type: "free", title: "Syarat UKEN: Magang, Magang Bersama & Poin Kegiatan" },
       { type: "free", title: "Checklist Dokumen Selama Masa Magang" },
-      { type: "premium", title: "Ringkasan Kode Etik Notaris Beranotasi" },
-      { type: "premium", title: "Bank Soal Latihan UKEN + Pembahasan" },
+      { type: "premium", title: "Ringkasan Kode Etik Notaris Beranotasi", product: "ringkasan-kode-etik" },
+      { type: "premium", title: "Bank Soal Latihan UKEN + Pembahasan", product: "bank-soal-uken" },
     ],
   },
   {
@@ -71,8 +71,8 @@ const STAGES = [
     lessons: [
       { type: "free", title: "Peran PPAT dalam Peralihan Hak Atas Tanah: Panduan Singkat", slug: "peran-ppat-peralihan-hak-tanah" },
       { type: "free", title: "Peta Materi Ujian PPAT" },
-      { type: "premium", title: "Template Akta PPAT Beranotasi" },
-      { type: "premium", title: "Bank Soal Latihan Ujian PPAT + Pembahasan" },
+      { type: "premium", title: "Template Akta PPAT Beranotasi", product: "template-akta-ppat" },
+      { type: "premium", title: "Bank Soal Latihan Ujian PPAT + Pembahasan", product: "bank-soal-ppat" },
     ],
   },
   {
@@ -87,37 +87,9 @@ const STAGES = [
     lessons: [
       { type: "free", title: "Digitalisasi Akta Notaris: Peluang dan Tantangan", slug: "digitalisasi-akta-notaris" },
       { type: "free", title: "Glosarium Istilah Kenotariatan A–Z" },
-      { type: "premium", title: "Kumpulan Template & Contoh Akta Notaris" },
-      { type: "premium", title: "Studi Kasus Sale and Leaseback" },
+      { type: "premium", title: "Kumpulan Template & Contoh Akta Notaris", product: "template-akta-notaris" },
+      { type: "premium", title: "Studi Kasus Sale and Leaseback", product: "studi-kasus-sale-leaseback" },
     ],
-  },
-];
-
-// Paket premium — harga belum ditetapkan (price: null => "Harga segera diumumkan").
-const PREMIUM = [
-  {
-    title: "Bank Soal Seleksi ALB INI",
-    stage: "Tahap 02",
-    price: null,
-    points: ["Soal latihan pilihan ganda & esai", "Pembahasan per soal", "Disusun mengikuti komponen seleksi"],
-  },
-  {
-    title: "Bank Soal UKEN",
-    stage: "Tahap 03",
-    price: null,
-    points: ["Soal latihan seputar Kode Etik Notaris", "Pembahasan dengan rujukan aturan", "Ringkasan materi kunci"],
-  },
-  {
-    title: "Bank Soal Ujian PPAT",
-    stage: "Tahap 04",
-    price: null,
-    points: ["Soal latihan per bidang materi", "Pembahasan per soal", "Latihan pembuatan akta PPAT"],
-  },
-  {
-    title: "Template Akta Notaris & PPAT",
-    stage: "Tahap 04–05",
-    price: null,
-    points: ["Contoh akta dengan anotasi", "Penjelasan klausul penting", "Format siap dipelajari"],
   },
 ];
 
@@ -207,7 +179,7 @@ const FAQ = [
   },
   {
     q: "Bagaimana cara mendapatkan materi Premium?",
-    a: "Harga materi Premium akan diumumkan saat materi dirilis. Sementara ini Anda dapat mendaftarkan minat melalui WhatsApp agar mendapat informasi pertama.",
+    a: "Materi Premium tersedia di halaman Akademi. Klik Daftar Minat pada materi yang Anda pilih; harga dan cara pembayaran dikonfirmasi langsung oleh tim kami via WhatsApp.",
   },
   {
     q: "Apakah materi mengikuti regulasi terbaru?",
@@ -215,4 +187,4 @@ const FAQ = [
   },
 ];
 
-module.exports = { STAGES, PREMIUM, QUIZ, FAQ };
+module.exports = { STAGES, QUIZ, FAQ };

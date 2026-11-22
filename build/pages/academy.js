@@ -1,174 +1,151 @@
 const icons = require("../components/icons");
-const sectionHeading = require("../components/sectionHeading");
+const { STAGE_LABELS, TYPES, PRODUCTS, ACADEMY_FAQ } = require("../content/academyCatalog");
 
-const CLASSES = [
-  { tag: "Pemula", title: "Kelas Dasar Kenotariatan untuk Pemula", desc: "Pengantar dasar dunia kenotariatan bagi mahasiswa hukum dan calon mahasiswa M.Kn. — terminologi, alur kerja, dan gambaran karier.", format: "Kelas online (self-paced)" },
-  { tag: "Menengah", title: "Workshop Penyusunan Akta Pembiayaan & Leasing", desc: "Workshop praktis mengenai struktur dan penyusunan akta pada transaksi pembiayaan dan leasing, termasuk sale and leaseback.", format: "Live workshop" },
-  { tag: "Mahasiswa M.Kn.", title: "Bootcamp Menulis Tesis M.Kn. dengan Efektif", desc: "Pendampingan terstruktur dari pemilihan topik, rumusan masalah, metodologi, hingga strategi penulisan tesis yang efektif.", format: "Kelas kohort (4 minggu)" },
-  { tag: "Profesional", title: "Kelas Praktik PPAT: Dari Teori ke Lapangan", desc: "Menjembatani teori dan praktik lapangan PPAT melalui studi kasus, dokumen contoh, dan diskusi situasi nyata.", format: "Kelas online + studi kasus" },
-  { tag: "Sertifikasi", title: "Certificate Legal Officer (CLO)", desc: "Program sertifikasi kompetensi legal officer untuk kebutuhan korporasi — kontrak, kepatuhan, dan dokumentasi legal dasar.", format: "Kelas + ujian kompetensi internal", note: "Ini adalah sertifikasi kompetensi internal dari ORDER.NOTARIS Academy, bukan sertifikasi resmi dari lembaga sertifikasi profesi negara." },
-];
+// Akademi = where learners buy: bank soal, template, materi, kelas, bimbingan — grouped by
+// the same career stages as Edukasi (where the free material lives).
 
-const MATERIALS = [
-  {
-    tag: "Template & Contoh Akta",
-    title: "Kumpulan Template & Contoh Akta Notaris",
-    desc: "Kumpulan format dan contoh draf akta notaris untuk berbagai jenis transaksi umum, sebagai bahan referensi dalam mempelajari struktur dan susunan akta.",
-    points: [
-      "Kumpulan format draf akta untuk berbagai jenis transaksi umum",
-      "Disusun sebagai bahan referensi belajar, bukan dokumen siap pakai",
-      "Tetap memerlukan penyesuaian dan verifikasi oleh notaris sebelum digunakan pada transaksi nyata",
-    ],
-    note: "Materi ini bersifat referensi pembelajaran dan tidak menggantikan akta resmi yang dibuat notaris berdasarkan kebutuhan spesifik masing-masing pihak. Info ketersediaan dan harga melalui WhatsApp.",
-  },
-  {
-    tag: "Materi Belajar Mandiri",
-    title: "Kumpulan Contoh Soal Ujian Notaris & PPAT",
-    desc: "Kumpulan soal latihan berdasarkan topik-topik umum kenotariatan dan PPAT, untuk membantu persiapan belajar mandiri.",
-    points: [
-      "Kumpulan soal latihan berdasarkan topik-topik umum kenotariatan dan PPAT",
-      "Disusun sebagai bahan latihan mandiri, bukan bocoran maupun soal resmi ujian",
-      "Tidak berafiliasi dengan dan tidak mewakili penyelenggara ujian resmi mana pun",
-    ],
-    note: "Materi latihan mandiri untuk membantu pemahaman konsep, bukan jaminan kelulusan ujian. Info ketersediaan dan harga melalui WhatsApp.",
-  },
-];
+function productCta(config, p) {
+  if (p.checkout) {
+    return `<a class="btn btn-navy btn-block" href="${p.checkout}" target="_blank" rel="noopener">Beli Sekarang</a>`;
+  }
+  return `<a class="btn btn-navy btn-block" href="${config.waLink(`Halo ORDER.NOTARIS, saya ingin mendaftar minat untuk: ${p.title}`)}" target="_blank" rel="noopener">Daftar Minat</a>`;
+}
 
-const RESOURCES = [
-  { title: "Checklist Dokumen Akta Jual Beli", desc: "Daftar periksa dokumen umum yang biasanya diperlukan dalam proses akta jual beli.", tag: "Checklist (PDF)" },
-  { title: "Template Studi Kasus Sale and Leaseback", desc: "Kerangka studi kasus untuk mempelajari struktur transaksi sale and leaseback.", tag: "Template" },
-  { title: "Glosarium Istilah Kenotariatan A–Z", desc: "Kumpulan istilah dasar kenotariatan untuk mahasiswa dan pemula.", tag: "Glosarium" },
-  { title: "Panduan Singkat Memilih Topik Tesis M.Kn.", desc: "Kerangka berpikir singkat untuk membantu menentukan topik tesis yang relevan dan terukur.", tag: "Panduan (PDF)" },
-];
-
-// Bimbingan Jurnal Ilmiah lives here (not in /services/) because it's academic writing
-// mentorship, not a notarial/PPAT/corporate-legal service — see note in content/services.js.
-const services = require("../content/services");
-const journalService = services.find((s) => s.slug === "bimbingan-jurnal-ilmiah");
+function productCard(config, p) {
+  const t = TYPES[p.type];
+  return `
+  <article class="product-card" id="${p.id}" data-stage="${p.stage}">
+    <div class="product-card__top">
+      <span class="product-card__type"><span class="product-card__icon">${icons[t.icon]()}</span>${t.label}</span>
+      <span class="product-card__stage">${STAGE_LABELS[p.stage]}</span>
+    </div>
+    <h3 class="product-card__title">${p.title}</h3>
+    <p class="product-card__desc">${p.desc}</p>
+    <ul class="product-card__points">
+      ${p.points.map((pt) => `<li>${icons.check()}<span>${pt}</span></li>`).join("")}
+    </ul>
+    ${p.note ? `<p class="product-card__note">${p.note}</p>` : ""}
+    <div class="product-card__foot">
+      <div class="product-card__meta">
+        <span>${p.format}</span>
+        <strong>${p.price || "Harga segera diumumkan"}</strong>
+      </div>
+      ${productCta(config, p)}
+    </div>
+  </article>`;
+}
 
 function academy(config) {
+  const stages = Object.keys(STAGE_LABELS);
   return `
-  <section class="page-hero page-hero--photo" style="background-image:url('/assets/photos/lecture-hall.jpg');">
+  <section class="page-hero page-hero--photo edu-hero" style="background-image:url('/assets/photos/lecture-hall.jpg');">
     <div class="container">
       <div class="breadcrumb"><a href="/">Beranda</a> / Akademi</div>
-      <span class="eyebrow eyebrow--onlight">Pengembangan Profesional</span>
-      <h1 class="display">Akademi ORDER.NOTARIS</h1>
-      <p>Kelas, workshop, dan sertifikasi kompetensi terstruktur seputar kenotariatan dan legal korporat, materi/template yang bisa dipesan, serta resource gratis — dari dasar untuk pemula hingga praktik lanjutan untuk profesional.</p>
+      <span class="eyebrow eyebrow--onlight">Akademi ORDER.NOTARIS</span>
+      <h1 class="display">Persiapan Terarah, dari M.Kn. hingga Lulus Ujian</h1>
+      <p>Program pembelajaran untuk membangun kompetensi dan kesiapan profesional di dunia kenotariatan dan PPAT, sejak lulus M.Kn., masa ALB INI &amp; IPPAT, hingga lulus Ujian Kode Etik Notaris dan PPAT.</p>
+      <div class="edu-hero__cta">
+        <a class="btn btn-light btn-lg" href="#katalog">Lihat Katalog ${icons.arrowRight()}</a>
+        <a class="btn btn-outline--onlight btn-lg" href="${config.waLink("Halo ORDER.NOTARIS, saya ingin berkonsultasi tentang program Akademi.")}" target="_blank" rel="noopener">Konsultasi Program</a>
+      </div>
     </div>
   </section>
 
-  <section class="section--tight" style="border-bottom:1px solid var(--line);background:var(--navy-100);">
-    <div class="container center">
-      <p class="small" style="color:var(--navy-800);font-weight:700;">
-        Status saat ini: kelas-kelas di bawah berada pada tahap perencanaan (Segera Hadir). Daftarkan minatmu lewat WhatsApp untuk mendapat info jadwal dan harga saat kelas dibuka.
-      </p>
+  <section class="section academy-values">
+    <div class="container academy-values__grid">
+      <div class="academy-value">
+        <span class="academy-value__icon">${icons.cap()}</span>
+        <div><h3>Mengikuti tahapan karier</h3><p>Materi dikelompokkan per tahap: M.Kn., seleksi ALB INI, UKEN, ALB IPPAT &amp; ujian PPAT, hingga praktik.</p></div>
+      </div>
+      <div class="academy-value">
+        <span class="academy-value__icon">${icons.book()}</span>
+        <div><h3>Pembahasan berbasis aturan</h3><p>Setiap pembahasan merujuk pada peraturan dan ketentuan organisasi yang berlaku saat penyusunan.</p></div>
+      </div>
+      <div class="academy-value">
+        <span class="academy-value__icon">${icons.doc()}</span>
+        <div><h3>Transparan</h3><p>Soal latihan disusun mandiri, bukan soal resmi atau bocoran, dan template adalah referensi belajar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dim" id="katalog">
+    <div class="container">
+      <h2 class="display center-heading">Katalog Akademi</h2>
+      <p class="center-sub">Pilih tahap Anda untuk melihat materi yang relevan.</p>
+      <div class="filter-chips filter-chips--center" role="group" aria-label="Filter tahap" data-filter-group>
+        <button type="button" class="chip is-active" data-filter="*" aria-pressed="true">Semua <span>${PRODUCTS.length}</span></button>
+        ${stages
+          .map(
+            (s) =>
+              `<button type="button" class="chip" data-filter="${s}" aria-pressed="false">${STAGE_LABELS[s]} <span>${PRODUCTS.filter((p) => p.stage === s).length}</span></button>`
+          )
+          .join("")}
+      </div>
+      <div class="product-grid" data-filter-items>
+        ${PRODUCTS.map((p) => productCard(config, p)).join("")}
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      ${sectionHeading({ eyebrow: "Katalog Kelas", title: "Pilih jalur sesuai levelmu" })}
-      <div class="card-grid card-grid--2">
-        ${CLASSES.map(
-          (c) => `
-          <div class="academy-card">
-            <div class="card-tags">
-              <span class="tag">${c.tag}</span>
-              <span class="badge badge-soon">Segera Hadir</span>
-            </div>
-            <h3>${c.title}</h3>
-            <p>${c.desc}</p>
-            <p class="small">${c.format}</p>
-            ${c.note ? `<p class="small" style="margin-top:6px;color:var(--ink-500);">${c.note}</p>` : ""}
-            <span class="badge badge-placeholder">Contoh Konten</span>
-            <a class="btn btn-wa btn-block" style="margin-top:10px;" href="${config.waLink(`Halo, saya ingin daftar minat untuk kelas: ${c.title}`)}" target="_blank" rel="noopener">
-              ${icons.whatsapp()} Daftar Minat
-            </a>
-          </div>`
-        ).join("")}
+      <h2 class="display center-heading">Cara Mendapatkan Materi</h2>
+      <div class="step-grid academy-steps">
+        <div class="step-card"><span class="academy-step__num">1</span><h3 class="step-card__title">Pilih Materi</h3><p class="step-card__desc">Temukan materi atau kelas sesuai tahap yang sedang Anda jalani.</p></div>
+        <div class="step-card"><span class="academy-step__num">2</span><h3 class="step-card__title">Daftar Minat</h3><p class="step-card__desc">Klik Daftar Minat untuk terhubung dengan tim kami via WhatsApp.</p></div>
+        <div class="step-card"><span class="academy-step__num">3</span><h3 class="step-card__title">Konfirmasi &amp; Akses</h3><p class="step-card__desc">Harga, pembayaran, dan cara menerima materi dikonfirmasi langsung oleh tim kami.</p></div>
+      </div>
+    </div>
+  </section>
 
-        <div class="academy-card">
-          <div class="card-tags">
-            <span class="tag">Akademik & Publikasi</span>
-            <span class="badge badge-soon">Segera Hadir</span>
-          </div>
-          <h3>${journalService.title}</h3>
-          <p>${journalService.summary}</p>
-          <p class="small">Bimbingan 1:1, jadwal menyesuaikan</p>
-          <span class="badge badge-placeholder">Contoh Konten</span>
-          <a class="btn btn-wa btn-block" style="margin-top:10px;" href="${config.waLink(`Halo, saya ingin bertanya tentang: ${journalService.title}`)}" target="_blank" rel="noopener">
-            ${icons.whatsapp()} Tanya via WhatsApp
-          </a>
+  <section class="section section--dim">
+    <div class="container">
+      <div class="cta-banner">
+        <span class="eyebrow eyebrow--onlight">Belum Siap Membeli?</span>
+        <h2 class="display">Mulai dari materi gratis dan kuis latihan di Edukasi</h2>
+        <div class="cta-banner__actions">
+          <a class="btn btn-light btn-lg" href="/education/">Buka Edukasi ${icons.arrowRight()}</a>
+          <a class="btn btn-outline--onlight btn-lg" href="/education/#kuis">Coba 10 Soal Gratis</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--dim">
-    <div class="container">
-      ${sectionHeading({
-        eyebrow: "Materi & Template",
-        title: "Bahan belajar mandiri, siap dipesan",
-        lede: "Template/contoh akta dan kumpulan soal latihan sebagai bahan referensi belajar — bukan pengganti dokumen resmi atau soal ujian resmi.",
-      })}
-      <div class="card-grid card-grid--2">
-        ${MATERIALS.map(
-          (m) => `
-          <div class="academy-card">
-            <div class="card-tags">
-              <span class="tag">${m.tag}</span>
-              <span class="badge badge-soon">Segera Hadir</span>
-            </div>
-            <h3>${m.title}</h3>
-            <p>${m.desc}</p>
-            <ul class="small" style="margin-top:6px;padding-left:18px;display:grid;gap:4px;">
-              ${m.points.map((p) => `<li>${p}</li>`).join("")}
-            </ul>
-            <p class="small" style="margin-top:6px;color:var(--ink-500);">${m.note}</p>
-            <a class="btn btn-wa btn-block" style="margin-top:10px;" href="${config.waLink(`Halo, saya tertarik dengan materi: ${m.title}`)}" target="_blank" rel="noopener">
-              ${icons.whatsapp()} Tanya via WhatsApp
-            </a>
-          </div>`
+  <section class="section" id="faq">
+    <div class="container faq-wrap">
+      <h2 class="display center-heading">Pertanyaan Umum</h2>
+      <div class="faq">
+        ${ACADEMY_FAQ.map(
+          (f) => `
+        <details class="faq__item">
+          <summary>${f.q}<span class="faq__icon" aria-hidden="true">${icons.plus()}</span></summary>
+          <p>${f.a}</p>
+        </details>`
         ).join("")}
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      ${sectionHeading({
-        eyebrow: "Resource Gratis",
-        title: "Checklist, template, dan panduan singkat — tanpa biaya",
-        lede: "File belum tersedia untuk diunduh otomatis. Klik tombol pada tiap resource untuk memintanya langsung lewat WhatsApp — kami kirimkan begitu siap.",
-      })}
-      <div class="card-grid card-grid--2">
-        ${RESOURCES.map(
-          (r) => `
-          <div class="resource-card">
-            <div class="pillar-card__icon">${icons.download()}</div>
-            <span class="badge badge-placeholder">Contoh Konten</span>
-            <h3>${r.title}</h3>
-            <p>${r.desc}</p>
-            <span class="tag" style="width:fit-content;">${r.tag}</span>
-            <a class="btn btn-wa btn-block" style="margin-top:6px;" href="${config.waLink(`Halo, saya ingin mendapatkan resource gratis: ${r.title}`)}" target="_blank" rel="noopener">
-              ${icons.whatsapp()} Minta via WhatsApp
-            </a>
-          </div>`
-        ).join("")}
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--dim">
-    <div class="container center">
-      <span class="eyebrow" style="justify-content:center;">Daftar Minat</span>
-      <h2 class="display" style="margin-top:10px;">Ingin jadi yang pertama tahu saat kelas atau materi tersedia?</h2>
-      <p class="lede mx-auto max-w-prose" style="margin-top:12px;">Kirim pesan WhatsApp dengan menyebutkan kelas atau materi yang kamu minati — tim kami akan menghubungimu kembali saat sudah tersedia.</p>
-      <a class="btn btn-wa btn-lg" style="margin-top:22px;" href="${config.waLink("Halo, saya ingin daftar minat untuk kelas/materi Akademi ORDER.NOTARIS.")}" target="_blank" rel="noopener">
-        ${icons.whatsapp()} Daftar Minat via WhatsApp
-      </a>
-    </div>
-  </section>
+  <script>
+    (function () {
+      var group = document.querySelector('[data-filter-group]');
+      var items = document.querySelectorAll('[data-filter-items] [data-stage]');
+      if (!group) return;
+      function apply(f) {
+        group.querySelectorAll('[data-filter]').forEach(function (b) { var on = b.getAttribute('data-filter') === f; b.classList.toggle('is-active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        items.forEach(function (it) { it.hidden = !(f === '*' || it.getAttribute('data-stage') === f); });
+      }
+      group.addEventListener('click', function (e) { var b = e.target.closest('[data-filter]'); if (b) apply(b.getAttribute('data-filter')); });
+      // Deep link (e.g. /academy/#bank-soal-uken from Edukasi): make sure the card is visible and highlighted.
+      var id = location.hash.replace('#', '');
+      var target = id && document.getElementById(id);
+      if (target && target.classList.contains('product-card')) {
+        apply('*');
+        target.classList.add('is-highlight');
+        setTimeout(function () { target.scrollIntoView({ block: 'center' }); }, 50);
+      }
+    })();
+  </script>
   `;
 }
 
