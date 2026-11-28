@@ -48,21 +48,23 @@ function articleTile(article, { summary = true } = {}) {
 // News card for the Media (kabar & agenda) list. Status is computed at build time and
 // refreshed in the browser from data-event-end.
 function newsStatus(item, now = new Date()) {
+  if (!item.eventEnd) return "news";
   const end = new Date(item.eventEnd + "T23:59:59+07:00");
   return now <= end ? "upcoming" : "past";
 }
 function newsBadge(item) {
   const st = newsStatus(item);
+  if (st === "news") return "";
   return `<span class="news-status news-status--${st}" data-event-end="${item.eventEnd}">${st === "upcoming" ? "Akan Datang" : "Telah Berlangsung"}</span>`;
 }
 function newsCard(item) {
   return `
   <a class="news-card" href="/media/kabar/${item.slug}/">
-    <div class="news-card__media"><img src="${item.image}" alt="" loading="lazy" /></div>
+    <div class="news-card__media${item.flyer ? "" : " news-card__media--cover"}"><img src="${item.image}" alt="" loading="lazy" /></div>
     <div class="news-card__body">
       <div class="news-card__meta"><span class="news-card__cat">${item.category}</span>${newsBadge(item)}</div>
       <h3 class="news-card__title">${item.title}</h3>
-      <p class="news-card__date">${item.eventDate}</p>
+      <p class="news-card__date">${item.eventDate || item.published}</p>
     </div>
   </a>`;
 }

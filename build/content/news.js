@@ -8,12 +8,98 @@
 
 module.exports = [
   {
+    slug: "menkum-permudah-perpindahan-wilayah-kerja-notaris",
+    category: "Kabar Kemenkum",
+    title: "Menkum Siapkan Kemudahan Pindah Wilayah Kerja Notaris, Dugaan \u201cJual-Beli Wilayah Kerja\u201d Akan Ditelusuri",
+    summary:
+      "Menteri Hukum menyampaikan rencana mempermudah perpindahan wilayah kerja notaris, sekaligus mengungkap laporan dugaan transaksi \u201cjual-beli wilayah kerja\u201d di antara ALB INI yang akan ditelusuri Inspektorat Jenderal.",
+    published: "27 Nov 2026",
+    publishedISO: "2026-11-27",
+    flyer: false,
+    source: "ANTARA",
+    image: "/assets/photos/cover-wilayah-kerja-notaris.jpg",
+    imageAlt: "Ilustrasi peta wilayah kerja notaris",
+    body: [
+      "Menteri Hukum Supratman Andi Agtas menyampaikan bahwa Kementerian Hukum sedang menyusun kemudahan perpindahan wilayah kerja notaris. Hal itu disampaikan dalam program \u201cPASTI Ada Solusi\u201d di Jakarta, sebagaimana diberitakan ANTARA pada 27 November 2026, menanggapi keluhan ALB notaris yang pada pendaftaran pengangkatan notaris 2026 harus memilih wilayah kerja yang jauh dari domisili atau tidak sesuai keinginan.",
+      "Rencana yang disebutkan antara lain menurunkan syarat minimal jumlah akta \u2014 yang selama ini 100 akta untuk semua wilayah \u2014 bagi perpindahan ke daerah 3T dan sejumlah daerah lain, menghapus batasan kuota dan sistem \u201cwar\u201d dalam perpindahan, menerima surat keterangan kesehatan dari rumah sakit tipe apa pun, serta memungkinkan pengajuan perpindahan secara elektronik. Menkum menegaskan seluruh rencana tersebut masih dalam tahap penyusunan.",
+      "Dalam kesempatan yang sama, Menkum mengaku menerima laporan dugaan transaksi \u201cjual-beli wilayah kerja\u201d di antara ALB INI, dengan bukti berupa percakapan di grup WhatsApp. Ia menegaskan laporan itu belum tentu benar dan akan ditelusuri lebih lanjut oleh Inspektorat Jenderal Kementerian Hukum. Menkum juga menegaskan bahwa kementerian tidak memungut biaya apa pun dari ALB yang mendaftar, dan meminta pelaku diproses secara pidana apabila laporan tersebut terbukti.",
+    ],
+    details: [
+      { label: "Status", value: "Rencana kebijakan, masih disusun; peraturan dan tanggal berlaku belum diumumkan" },
+      { label: "Rencana kemudahan", value: "Penurunan syarat minimal akta untuk daerah 3T dan daerah tertentu, penghapusan kuota dan sistem \u201cwar\u201d, surat keterangan sehat dari rumah sakit tipe apa pun, pengajuan elektronik" },
+      { label: "Dugaan jual-beli wilayah kerja", value: "Akan ditelusuri Inspektorat Jenderal Kementerian Hukum; belum terbukti" },
+      { label: "Biaya pendaftaran ALB", value: "Kementerian menegaskan tidak memungut biaya" },
+    ],
+    sources: [
+      { label: "ANTARA — Menkum janji permudah proses perpindahan wilayah kerja notaris (27 Nov 2026)", url: "https://www.antaranews.com/berita/5882671/menkum-janji-permudah-proses-perpindahan-wilayah-kerja-notaris" },
+      { label: "ANTARA — Menkum terima laporan ada transaksi \u201cjual-beli wilayah kerja\u201d notaris (27 Nov 2026)", url: "https://www.antaranews.com/berita/5883031/menkum-terima-laporan-ada-transaksi-jual-beli-wilayah-kerja-notaris" },
+    ],
+  },
+  {
+    slug: "kanwil-kemenkum-kalteng-pengawasan-protokol-notaris",
+    category: "Kabar Kemenkum",
+    title: "Kanwil Kemenkum Kalteng Periksa Penyerahan Protokol Notaris di Kotawaringin Barat",
+    summary:
+      "Kanwil Kementerian Hukum Kalimantan Tengah bersama majelis pengawas notaris memeriksa penyerahan protokol seorang notaris yang telah mencapai batas usia, menindaklanjuti surat Direktur Perdata Ditjen AHU.",
+    published: "25 Nov 2026",
+    publishedISO: "2026-11-25",
+    flyer: false,
+    source: "Prokalteng (Jawa Pos Group)",
+    image: "/assets/photos/cover-protokol-notaris.jpg",
+    imageAlt: "Ilustrasi arsip protokol notaris",
+    body: [
+      "Kantor Wilayah Kementerian Hukum Kalimantan Tengah melaksanakan pengawasan protokol notaris di Pangkalan Bun, Kabupaten Kotawaringin Barat, pada Rabu, 25 November 2026. Kegiatan dipimpin Kepala Kanwil Hajrianor bersama Kepala Divisi Pelayanan Hukum, Majelis Pengawas Daerah Notaris (MPDN) Kotawaringin Barat, dan Majelis Pengawas Wilayah Notaris Kalimantan Tengah.",
+      "Pemeriksaan ini menindaklanjuti surat Direktur Perdata Ditjen AHU tertanggal 9 September 2026 yang meminta MPDN memeriksa dan mengklarifikasi seorang notaris yang masa jabatannya telah mencapai batas usia, berkoordinasi dengan Pengurus Daerah INI setempat, serta memastikan jumlah akta dan proses penyerahan protokolnya.",
+      "Hajrianor menegaskan bahwa protokol notaris bukan sekadar kumpulan berkas administrasi, melainkan dokumen autentik, sehingga keberadaan dan penyerahannya perlu dipastikan. Kabar ini menjadi pengingat bagi notaris mengenai kewajiban pengelolaan dan penyerahan protokol ketika masa jabatan berakhir.",
+    ],
+    details: [
+      { label: "Tanggal", value: "Rabu, 25 November 2026" },
+      { label: "Tempat", value: "Pangkalan Bun, Kabupaten Kotawaringin Barat, Kalimantan Tengah" },
+      { label: "Dasar", value: "Surat Direktur Perdata Ditjen AHU No. AHU.2-AH.02-247 tanggal 9 September 2026" },
+      { label: "Pihak terlibat", value: "Kanwil Kemenkum Kalteng, MPDN Kotawaringin Barat, MPWN Kalimantan Tengah, Pengda INI Kotawaringin Barat" },
+    ],
+    sources: [
+      { label: "Prokalteng — Kanwil Kemenkum Kalteng Perketat Pengawasan Protokol Notaris Kobar (25 Nov 2026)", url: "https://prokalteng.jawapos.com/prohukrim/pro-kalteng/25/11/2026/pengawasan-protokol-notaris-kotawaringin-barat" },
+    ],
+  },
+  {
+    slug: "sanksi-laporan-tahunan-pt-desember-2026",
+    category: "Kabar Kemenkum",
+    title: "Sanksi Laporan Tahunan PT Mulai 1 Desember 2026, Akses SABH Diblokir Mulai 2 Januari 2027",
+    summary:
+      "Ditjen AHU menjatuhkan teguran tertulis kepada perseroan yang belum menyampaikan laporan tahunan periode 2025 pada 1\u201331 Desember 2026, disusul pemblokiran akses SABH mulai 2 Januari 2027.",
+    published: "29 Okt 2026",
+    publishedISO: "2026-10-29",
+    flyer: false,
+    source: "Ortax, mengutip pengumuman Ditjen AHU",
+    image: "/assets/photos/cover-laporan-tahunan-pt.jpg",
+    imageAlt: "Ilustrasi kalender tenggat dan laporan tahunan perseroan",
+    body: [
+      "Direktorat Jenderal Administrasi Hukum Umum (Ditjen AHU) Kementerian Hukum mengumumkan tahapan sanksi administratif bagi perseroan terbatas yang belum menyampaikan laporan tahunan periode 2025. Tahap pertama berupa teguran tertulis pada 1\u201331 Desember 2026, sedangkan tahap kedua berupa pemblokiran akses Sistem Administrasi Badan Hukum (SABH) mulai 2 Januari 2027. Ketentuan ini merujuk pada Peraturan Menteri Hukum Nomor 49 Tahun 2025.",
+      "Kabar ini relevan bagi notaris karena persetujuan atas laporan tahunan dituangkan dalam akta notaris dan disampaikan melalui SABH. Sejak 1 November 2026, akta tersebut wajib disampaikan melalui SABH paling lambat 30 hari sejak ditandatangani. Tarif PNBP untuk pemberitahuan tersebut ditetapkan Rp0 hingga 31 Desember 2026.",
+      "Untuk laporan tahunan periode 2026, penyampaian melalui SABH dapat dilakukan pada 2 Januari\u201330 Juni 2027.",
+    ],
+    details: [
+      { label: "Teguran tertulis", value: "1\u201331 Desember 2026" },
+      { label: "Pemblokiran akses SABH", value: "Mulai 2 Januari 2027" },
+      { label: "Dasar hukum", value: "Peraturan Menteri Hukum Nomor 49 Tahun 2025" },
+      { label: "Penyampaian akta", value: "Melalui SABH paling lambat 30 hari sejak penandatanganan (berlaku sejak 1 November 2026)" },
+      { label: "Tarif PNBP", value: "Rp0 hingga 31 Desember 2026" },
+      { label: "Laporan periode 2026", value: "Disampaikan melalui SABH pada 2 Januari\u201330 Juni 2027" },
+    ],
+    sources: [
+      { label: "Ortax — Tenggat Pelaporan Tahunan PT Diperpanjang, Sanksi Berlaku Mulai Desember 2026 (29 Okt 2026)", url: "https://ortax.org/tenggat-pelaporan-tahunan-pt-diperpanjang-sanksi-berlaku-mulai-desember-2026" },
+    ],
+  },
+  {
     slug: "ippat-diklatsar-calon-alb-januari-2027",
     category: "Agenda IPPAT",
     title: "PP IPPAT Buka Pendaftaran Diklatsar I, II & Pembekalan Kode Etik untuk Calon ALB IPPAT",
     summary:
       "Pengurus Pusat IPPAT menyelenggarakan Diklatsar I, II dan Pembekalan Kode Etik secara daring pada 15–16 Januari 2027 bagi lulusan Magister Kenotariatan yang belum terdaftar sebagai ALB IPPAT.",
     published: "22 Nov 2026",
+    publishedISO: "2026-11-22",
+    flyer: true,
     eventDate: "15–16 Januari 2027",
     eventEnd: "2027-01-16",
     source: "Pengurus Pusat Ikatan Pejabat Pembuat Akta Tanah (IPPAT)",
@@ -56,6 +142,8 @@ module.exports = [
     summary:
       "Pengurus Daerah Jakarta Barat Ikatan Notaris Indonesia menggelar seleksi ALB berupa ujian tertulis dan lisan dengan materi Anggaran Dasar, Anggaran Rumah Tangga, dan Peraturan Perkumpulan INI.",
     published: "4 Nov 2026",
+    publishedISO: "2026-11-04",
+    flyer: true,
     eventDate: "Sabtu, 21 November 2026",
     eventEnd: "2026-11-21",
     source: "Pengurus Daerah Jakarta Barat Ikatan Notaris Indonesia (via @kabarnotaris)",
@@ -87,6 +175,8 @@ module.exports = [
     summary:
       "Pengurus Daerah Kota Tangerang Selatan Ikatan Notaris Indonesia menggelar pembekalan sekaligus seleksi ALB di Sekretariat Bersama Pengda INI–IPPAT Kota Tangerang Selatan.",
     published: "2 Nov 2026",
+    publishedISO: "2026-11-02",
+    flyer: true,
     eventDate: "Sabtu, 21 November 2026",
     eventEnd: "2026-11-21",
     source: "Pengurus Daerah Kota Tangerang Selatan Ikatan Notaris Indonesia (via @kabarnotaris)",

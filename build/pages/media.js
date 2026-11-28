@@ -19,19 +19,15 @@ const STATUS_SCRIPT = `
     })();
   </script>`;
 
-// Upcoming events first (soonest first), then past items (most recent first).
+// Newest first (by publishedISO).
 function sortedNews() {
-  return news.slice().sort((a, b) => {
-    const sa = newsStatus(a), sb = newsStatus(b);
-    if (sa !== sb) return sa === "upcoming" ? -1 : 1;
-    return sa === "upcoming" ? a.eventEnd.localeCompare(b.eventEnd) : b.eventEnd.localeCompare(a.eventEnd);
-  });
+  return news.slice().sort((a, b) => b.publishedISO.localeCompare(a.publishedISO));
 }
 
 function featuredNews(item) {
   return `
   <article class="news-feature">
-    <a class="news-feature__media" href="/media/kabar/${item.slug}/" aria-label="${item.title}">
+    <a class="news-feature__media${item.flyer ? "" : " news-feature__media--cover"}" href="/media/kabar/${item.slug}/" aria-label="${item.title}">
       <img src="${item.image}" alt="${item.imageAlt}" loading="lazy" />
     </a>
     <div class="news-feature__body">
@@ -39,7 +35,7 @@ function featuredNews(item) {
       <h3 class="news-feature__title"><a href="/media/kabar/${item.slug}/">${item.title}</a></h3>
       <p class="news-feature__summary">${item.summary}</p>
       <dl class="news-feature__facts">
-        <div><dt>Tanggal acara</dt><dd>${item.eventDate}</dd></div>
+        ${item.eventDate ? `<div><dt>Tanggal acara</dt><dd>${item.eventDate}</dd></div>` : `<div><dt>Tanggal</dt><dd>${item.published}</dd></div>`}
         <div><dt>Sumber</dt><dd>${item.source}</dd></div>
       </dl>
       <a class="btn btn-navy" href="/media/kabar/${item.slug}/">Baca Selengkapnya ${icons.arrowRight()}</a>

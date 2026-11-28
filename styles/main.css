@@ -1210,6 +1210,15 @@ a.lesson__title:hover { color: var(--navy-700); text-decoration: underline; text
 .news-facts dd { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--ink-900); }
 .news-detail__actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
 .news-detail__flyer img { width: 100%; border-radius: var(--radius-lg); border: 1px solid var(--line); box-shadow: var(--shadow-card); }
+.news-card__media--cover img, .news-feature__media--cover img { object-position: center; }
+/* On phones/tablets an illustration (not a flyer) sits above the text as a cover image */
+@media (max-width: 899px) {
+  .news-detail { display: flex; flex-direction: column; }
+  .news-detail__flyer--cover { order: -1; max-width: none; }
+  .news-detail__flyer--cover .news-detail__caption { display: none; }
+}
+.news-sources { margin: 12px 0 0; padding-left: 18px; display: grid; gap: 6px; }
+.news-sources a { color: var(--navy-800); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; word-break: break-word; }
 .news-detail__caption { margin-top: 10px; text-align: center; font-size: 13px; color: var(--ink-400); }
 
 /* article detail */
