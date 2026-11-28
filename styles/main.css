@@ -1215,7 +1215,7 @@ a.lesson__title:hover { color: var(--navy-700); text-decoration: underline; text
 @media (max-width: 899px) {
   .news-detail { display: flex; flex-direction: column; }
   .news-detail__flyer--cover { order: -1; max-width: none; }
-  .news-detail__flyer--cover .news-detail__caption { display: none; }
+  .news-detail__flyer--cover .news-detail__caption { margin-top: 6px; text-align: left; }
 }
 .news-sources { margin: 12px 0 0; padding-left: 18px; display: grid; gap: 6px; }
 .news-sources a { color: var(--navy-800); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; word-break: break-word; }

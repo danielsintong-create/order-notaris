@@ -52,7 +52,7 @@ function mediaNewsPage(config, item) {
         </a>
         <p class="news-detail__caption">E-flyer resmi · klik untuk memperbesar</p>`
             : `<img src="${item.image}" alt="" loading="lazy" />
-        <p class="news-detail__caption">Ilustrasi</p>`
+        <p class="news-detail__caption">Foto ilustrasi · Unsplash</p>`
         }
       </aside>
     </div>
